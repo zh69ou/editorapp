@@ -36,6 +36,10 @@ KISBPM.PROPERTY_CONFIG =
         "readModeTemplateUrl": "editor-app/configuration/properties/default-value-display-template.html",
         "writeModeTemplateUrl": "editor-app/configuration/properties/multiinstance-property-write-template.html"
     },
+    "choice-firm" : {
+        "readModeTemplateUrl": "editor-app/configuration/properties/choice-firm.html",
+        "writeModeTemplateUrl": "editor-app/configuration/properties/choice-firm-template.html"
+    },
     "oryx-formproperties-complex": {
         "readModeTemplateUrl": "editor-app/configuration/properties/form-properties-display-template.html",
         "writeModeTemplateUrl": "editor-app/configuration/properties/form-properties-write-template.html"
