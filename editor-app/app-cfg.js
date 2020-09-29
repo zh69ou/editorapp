@@ -25,6 +25,8 @@ ACTIVITI.CONFIG = {
     // 'contextRoot' : '/jrtech/wf',
 
     'contextRoot' : BaseUrl+'/application/wf',
+    'authApi' : BaseUrl+'/application/authapi',
+    'mobile' : BaseUrl+'/application/mobile',
 
 
 	/*'contextRoot' : '/yqbv/wf',*/

@@ -147,7 +147,8 @@
         "name" : "formkeydefinitionpackage",
         "properties" : [ {
             "id" : "formkeydefinition",
-            "type" : "String",
+            // "type" : "String",
+            "type" : "custom-sel",
             "title" : "自定义表单",
             "value" : "",
             "description" : "用户任务表单编号",

@@ -31,5 +31,17 @@ KISBPM.URL = {
 
     putModel: function(modelId) {
         return ACTIVITI.CONFIG.contextRoot + '/model/' + modelId + '/save';
+    },
+
+    getFirm:function(){
+        return ACTIVITI.CONFIG.authApi + '/base_Organization/getDepartmentInfoList';
+    },
+
+    getPeo:function(){
+        return ACTIVITI.CONFIG.authApi + '/base_Organization/getUserByDepartmentId';
+    },
+
+    getCustomList:function(){
+        return ACTIVITI.CONFIG.mobile + '/form';
     }
 };

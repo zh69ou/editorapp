@@ -1,29 +1,24 @@
 
-var KisBpmChoiceFirmCtrl = [ '$scope', '$modal', '$timeout', '$translate', function($scope, $modal, $timeout, $translate) {
+var KisBpmCustomSelCtrl = [ '$scope', '$modal', '$timeout', '$translate', function($scope, $modal, $timeout, $translate) {
 
     var opts = {
-        template:  'editor-app/configuration/properties/choice-firm-write.html?version=' + Date.now(),
+        template:  'editor-app/configuration/properties/custom-sel-write.html?version=' + Date.now(),
         scope: $scope
     };
 
     $modal(opts);
 }];
 
-var KisBpmChoiceFirmPopupCtrl = [ '$scope', '$http', '$translate', function($scope, $http, $translate) {
+var KisBpmCustomSelPopupCtrl = [ '$scope', '$http', '$translate', function($scope, $http, $translate) {
 
     $scope.typelist = ['人员','部门','岗位','群组'];
-    let urllist = [
-        KISBPM.URL.getPeo(),
-        KISBPM.URL.getFirm(),
-    ];
     $scope.typeindex = 0
     // angular.element('#jstree').jstree({
     //     "plugins" : [ "wholerow", "checkbox" ]
     // })
     $scope.treebox = null
-    $scope.upindex = function(i){
-        $scope.typeindex = i
-        let url = urllist[i]?urllist[i]:urllist[0]
+    $scope.getList = function(){
+        let url = KISBPM.URL.getCustomList()
         let arr = []
         let params = {}
         $http({
@@ -46,15 +41,6 @@ var KisBpmChoiceFirmPopupCtrl = [ '$scope', '$http', '$translate', function($sco
         })
         .success(function (data, status, headers, config) {
             console.log(data)
-            $scope.status.loading = false;
-            $scope.treebox = angular.element('#jstree').on('changed.jstree',(e,data)=>{
-                    console.log('data',data.selected)
-                }).jstree({
-                'plugins':["wholerow","checkbox"],
-                'core' : {
-                    'data' :arr,
-                }
-            })
         })
         .error(function (data, status, headers, config) {
             $scope.error = {};
