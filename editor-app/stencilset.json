@@ -37,7 +37,7 @@
         "name" : "documentationpackage",
         "properties" : [ {
             "id" : "documentation",
-            "type" : "Text",
+            "type" : "choice-sets",
             "title" : "描述",
             "value" : "",
             "description" : "元素描述",

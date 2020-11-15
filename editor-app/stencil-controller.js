@@ -691,18 +691,20 @@ angular.module('activitiModeler')
          * Helper method to find a stencil item.
          */
         $scope.getStencilItemById = function (stencilItemId) {
-            for (var i = 0; i < $scope.stencilItemGroups.length; i++) {
-                var element = $scope.stencilItemGroups[i];
+            if($scope.stencilItemGroups){
+                for (var i = 0; i < $scope.stencilItemGroups.length; i++) {
+                    var element = $scope.stencilItemGroups[i];
 
-                // Real group
-                if (element.items !== null && element.items !== undefined) {
-                    var item = $scope.findStencilItemInGroup(stencilItemId, element);
-                    if (item) {
-                        return item;
-                    }
-                } else { // Root stencil item
-                    if (element.id === stencilItemId) {
-                        return element;
+                    // Real group
+                    if (element.items !== null && element.items !== undefined) {
+                        var item = $scope.findStencilItemInGroup(stencilItemId, element);
+                        if (item) {
+                            return item;
+                        }
+                    } else { // Root stencil item
+                        if (element.id === stencilItemId) {
+                            return element;
+                        }
                     }
                 }
             }

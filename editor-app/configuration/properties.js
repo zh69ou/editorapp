@@ -40,6 +40,10 @@ KISBPM.PROPERTY_CONFIG =
         "readModeTemplateUrl": "editor-app/configuration/properties/choice-firm.html",
         "writeModeTemplateUrl": "editor-app/configuration/properties/choice-firm-template.html"
     },
+    "choice-sets" : {
+        "readModeTemplateUrl": "editor-app/configuration/properties/choice-sets.html",
+        "writeModeTemplateUrl": "editor-app/configuration/properties/choice-sets-template.html"
+    },
     "custom-sel" : {
         "readModeTemplateUrl": "editor-app/configuration/properties/custom-sel.html",
         "writeModeTemplateUrl": "editor-app/configuration/properties/custom-sel-template.html"

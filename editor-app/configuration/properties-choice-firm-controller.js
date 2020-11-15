@@ -16,6 +16,9 @@ var KisBpmChoiceFirmPopupCtrl = [ '$scope', '$http', '$translate', function($sco
         KISBPM.URL.getPeo(),
         KISBPM.URL.getFirm(),
     ];
+    $scope.status = {
+        loading: false
+    };
     $scope.typeindex = 0
     // angular.element('#jstree').jstree({
     //     "plugins" : [ "wholerow", "checkbox" ]
