@@ -198,7 +198,6 @@ var KisBpmChoiceFirmPopupCtrl = [ '$scope', '$http', '$translate', function($sco
                     }
                 }).on('changed.jstree',(e,data)=>{
                     $scope.cacheval = 'grp_'+data.selected[0]
-                    console.log('data',data.selected)
                 })
             })
             .error(function (data, status, headers, config) {
