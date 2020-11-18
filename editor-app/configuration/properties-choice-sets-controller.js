@@ -9,6 +9,23 @@ var KisBpmChoiceSetsCtrl = [ '$scope', '$modal', '$timeout', '$translate', funct
     $modal(opts);
 }];
 
+function setObjVal(obj,nobj){
+    for (let k in obj) {
+        if(obj[k]&&typeof(obj[k])=='object'){
+            if(Array.isArray(obj[k])){
+                if(nobj[k]){
+                    obj[k] = nobj[k].concat(obj[k])
+                }
+            }else{
+                obj[k] = setObjVal(obj[k],nobj[k])
+            }
+        }else{
+            obj[k] =  nobj[k]
+        }
+    }
+    return obj
+}
+
 var KisBpmChoiceSetsPopupCtrl = [ '$scope', '$http', '$translate', function($scope, $http, $translate) {
 
     $scope.typelist = ['超时设置','额外信息','表单权限'];
@@ -19,26 +36,45 @@ var KisBpmChoiceSetsPopupCtrl = [ '$scope', '$http', '$translate', function($sco
     $scope.status = {
         loading: false
     };
-    $scope.fsets = null
+    $scope.fsets = {
+        tableAuth:{
+            overtime:0,
+            backNode:0,
+            stopNode:0,
+            isDealer:0,
+            parentAuth:[""],
+            fieldAuth:[""],
+            showAuth:[""],
+        }
+    }
     $scope.typeindex = 0
     // angular.element('#jstree').jstree({
     //     "plugins" : [ "wholerow", "checkbox" ]
     // })
     $scope.treebox = null
     $scope.upindex = function(i){
-        console.log($scope.fsets)
         $scope.typeindex = i
+    }
+    $scope.addbox = function(obj){
+        if(obj){
+            obj.push('')
+        }
+    }
+    $scope.delbox = function(obj,i){
+        if(obj){
+            obj.splice(i,1)
+        }
     }
 
     setTimeout(()=>{
         try{
-            $scope.fsets = JSON.parse($scope.property.value)
+            $scope.fsets = setObjVal($scope.fsets,JSON.parse($scope.property.value))
         }catch(err){}
         $scope.upindex($scope.typeindex)
     },100)
 
     $scope.save = function() {
-
+        $scope.property.value = JSON.stringify($scope.fsets)
         $scope.updatePropertyInModel($scope.property);
         $scope.close();
     };

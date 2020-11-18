@@ -11,9 +11,87 @@
 				    <a class="nav-link">{{v}}</a>
 				  </li>
 				</ul>
-				<div ng-if="typeindex==0">0</div>
+				<div ng-if="typeindex==0">
+					<div class="row row-no-gutter">
+	            		<div class="form-check form-check-inline">
+            				<label class="col-sm-2 control-label text-right">{{'PROPERTY.CUSTOM.ISOVERTIME' | translate}}</label>
+            				<div class="col-sm-10">
+		            			<input type="radio" id="customovertimeyes" class="form-check-input" ng-model="fsets.tableAuth.overtime" value="1" />
+		            			<label class="form-check-label" for="customovertimeyes" >{{'PROPERTY.CUSTOM.IS_YES' | translate}}</label>
+		            			<input type="radio" id="customovertimeno" class="form-check-input" ng-model="fsets.tableAuth.overtime" value="0" />
+		            			<label class="form-check-label" for="customovertimeno" >{{'PROPERTY.CUSTOM.IS_NO' | translate}}</label>
+		            		</div>
+	            		</div>
+	            	</div>
+				</div>
 				<div ng-if="typeindex==1">1</div>
-				<div ng-if="typeindex==2">2</div>
+				<div ng-if="typeindex==2">
+					<div class="row row-no-gutter">
+	            		<div class="form-check form-check-inline"  ng-repeat="(i,v) in fsets.tableAuth.parentAuth  track by $index">
+            				<label class="col-sm-2 control-label text-right" for="{{'parentauth'+i}}">
+	            				<span ng-if="i===0">{{'PROPERTY.CUSTOM.PARENTAUTH' | translate}}</span>
+	            			</label>
+            				<div class="col-sm-10">
+            					<div class="input-group">
+	            					<input type="text" class="form-control" id="{{'parentauth'+i}}" ng-model="fsets.tableAuth.parentAuth[i]" placeholder="{{'PROPERTY.CUSTOM.PARENTAUTH' | translate}}">
+	            					<div class="input-group-addon col-but" ng-if="i===0" ng-click="addbox(fsets.tableAuth.parentAuth)">+</div>
+	            					<div class="input-group-addon col-but" ng-if="i!==0" ng-click="delbox(fsets.tableAuth.parentAuth,i)">-</div>
+	            				</div>
+            				</div>
+	            		</div>
+	            		<div class="form-check form-check-inline"  ng-repeat="(i,v) in fsets.tableAuth.fieldAuth  track by $index">
+            				<label class="col-sm-2 control-label text-right" for="{{'fieldauth'+i}}">
+            					<span ng-if="i===0">{{'PROPERTY.CUSTOM.FIELDAUTH' | translate}}</span>
+	            			</label>
+            				<div class="col-sm-10">
+            					<div class="input-group">
+	            					<input type="text" class="form-control" id="{{'fieldauth'+i}}" ng-model="fsets.tableAuth.fieldAuth[i]" placeholder="{{'PROPERTY.CUSTOM.FIELDAUTH' | translate}}">
+	            					<div class="input-group-addon col-but" ng-if="i===0" ng-click="addbox(fsets.tableAuth.fieldAuth)">+</div>
+	            					<div class="input-group-addon col-but" ng-if="i!==0" ng-click="delbox(fsets.tableAuth.fieldAuth,i)">-</div>
+	            				</div>
+            				</div>
+	            		</div>
+	            		<div class="form-check form-check-inline"  ng-repeat="(i,v) in fsets.tableAuth.showAuth  track by $index">
+            				<label class="col-sm-2 control-label text-right" for="{{'showauth'+i}}">
+            					<span ng-if="i===0">{{'PROPERTY.CUSTOM.SHOWAUTH' | translate}}</span>
+            				</label>
+            				<div class="col-sm-10">
+            					<div class="input-group">
+	            					<input type="text" class="form-control" id="{{'showauth'+i}}" ng-model="fsets.tableAuth.showAuth[i]" placeholder="{{'PROPERTY.CUSTOM.SHOWAUTH' | translate}}">
+	            					<div class="input-group-addon col-but" ng-if="i===0" ng-click="addbox(fsets.tableAuth.showAuth)">+</div>
+	            					<div class="input-group-addon col-but" ng-if="i!==0" ng-click="delbox(fsets.tableAuth.showAuth,i)">-</div>
+	            				</div>
+            				</div>
+	            		</div>
+	            		<div class="form-check form-check-inline">
+            				<label class="col-sm-2 control-label text-right">{{'PROPERTY.CUSTOM.ISBACKNODE' | translate}}</label>
+            				<div class="col-sm-10">
+		            			<input type="radio" id="customovertimeyes" class="form-check-input" ng-model="fsets.tableAuth.backNode" value="1" />
+		            			<label class="form-check-label" for="customovertimeyes" >{{'PROPERTY.CUSTOM.IS_YES' | translate}}</label>
+		            			<input type="radio" id="customovertimeno" class="form-check-input" ng-model="fsets.tableAuth.backNode" value="0" />
+		            			<label class="form-check-label" for="customovertimeno" >{{'PROPERTY.CUSTOM.IS_NO' | translate}}</label>
+		            		</div>
+	            		</div>
+	            		<div class="form-check form-check-inline">
+            				<label class="col-sm-2 control-label text-right">{{'PROPERTY.CUSTOM.ISSTOPNODE' | translate}}</label>
+            				<div class="col-sm-10">
+		            			<input type="radio" id="customstopnodeyes" class="form-check-input" ng-model="fsets.tableAuth.stopNode" value="1" />
+		            			<label class="form-check-label" for="customstopnodeyes" >{{'PROPERTY.CUSTOM.IS_YES' | translate}}</label>
+		            			<input type="radio" id="customstopnodeno" class="form-check-input" ng-model="fsets.tableAuth.stopNode" value="0" />
+		            			<label class="form-check-label" for="customstopnodeno" >{{'PROPERTY.CUSTOM.IS_NO' | translate}}</label>
+		            		</div>
+	            		</div>
+	            		<div class="form-check form-check-inline">
+            				<label class="col-sm-2 control-label text-right">{{'PROPERTY.CUSTOM.ISDEALER' | translate}}</label>
+            				<div class="col-sm-10">
+		            			<input type="radio" id="customisdealeryes" class="form-check-input" ng-model="fsets.tableAuth.isDealer" value="1" />
+		            			<label class="form-check-label" for="customisdealeryes" >{{'PROPERTY.CUSTOM.IS_YES' | translate}}</label>
+		            			<input type="radio" id="customtranslateno" class="form-check-input" ng-model="fsets.tableAuth.isDealer" value="0" />
+		            			<label class="form-check-label" for="customtranslateno" >{{'PROPERTY.CUSTOM.IS_NO' | translate}}</label>
+		            		</div>
+	            		</div>
+	            	</div>
+				</div>
 			</div>
 			<div class="modal-footer">
 			    <button ng-click="cancel()" class="btn btn-primary" translate>ACTION.CANCEL</button>

@@ -28,6 +28,11 @@ body {
     color: #1a1a1a;
 }
 
+.col-but{
+    width: 52px;
+    text-align: center;
+}
+
 .subtle {
     color: #999999;
     font-size: 13px;
