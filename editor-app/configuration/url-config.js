@@ -38,7 +38,13 @@ KISBPM.URL = {
     },
 
     getPeo:function(){
-        return ACTIVITI.CONFIG.authApi + '/base_Organization/getUserByDepartmentId';
+        return ACTIVITI.CONFIG.authApi + '/base_Organization/getCentUser';
+    },
+
+    getGrop:function(){
+        return ACTIVITI.CONFIG.authApi + '/base_group/getGroupList';
+        //测试
+        // return ACTIVITI.CONFIG.authApi + '/base_group/getAllUserList';
     },
 
     getCustomList:function(){
