@@ -67,17 +67,16 @@
 	            				</div>
             				</div>
 	            		</div>
-	            		<div class="form-check form-check-inline form-group">
-            				<label class="col-sm-2 control-label text-right">{{'PROPERTY.CUSTOM.ISBACKNODE' | translate}}</label>
+	            		<div class="form-check form-check-inline form-group" ng-repeat="(i,v) in fsets.tableAuth.backNode  track by $index">
+            				<label class="col-sm-2 control-label text-right" for="{{'backnode'+i}}">
+	            				<span ng-if="i===0">{{'PROPERTY.CUSTOM.ISBACKNODE' | translate}}</span>
+	            			</label>
             				<div class="col-sm-10">
-            					<div class="radio-inline">
-			            			<input type="radio" id="customovertimeyes" class="form-check-input" ng-model="fsets.tableAuth.backNode" value="1" />
-			            			<label class="form-check-label" for="customovertimeyes" >{{'PROPERTY.CUSTOM.IS_YES' | translate}}</label>
-            					</div>
-            					<div class="radio-inline">
-			            			<input type="radio" id="customovertimeno" class="form-check-input" ng-model="fsets.tableAuth.backNode" value="0" />
-			            			<label class="form-check-label" for="customovertimeno" >{{'PROPERTY.CUSTOM.IS_NO' | translate}}</label>
-            					</div>
+            					<div class="input-group">
+	            					<input type="text" class="form-control" id="{{'backnode'+i}}" ng-model="fsets.tableAuth.backNode[i]" placeholder="{{'PROPERTY.CUSTOM.ISBACKNODE' | translate}}">
+	            					<div class="input-group-addon col-but" ng-if="i===0" ng-click="addbox(fsets.tableAuth.backNode)">+</div>
+	            					<div class="input-group-addon col-but" ng-if="i!==0" ng-click="delbox(fsets.tableAuth.backNode,i)">-</div>
+	            				</div>
 		            		</div>
 	            		</div>
 	            		<div class="form-check form-check-inline form-group">

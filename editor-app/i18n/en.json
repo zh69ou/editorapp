@@ -272,7 +272,7 @@
 
     "PROPERTY.CUSTOM.SHOWAUTH" : "显示节点ID",
 
-    "PROPERTY.CUSTOM.ISBACKNODE" : "是否可驳回节点",
+    "PROPERTY.CUSTOM.ISBACKNODE" : "驳回节点",
 
     "PROPERTY.CUSTOM.ISSTOPNODE" : "是否可终结节点",
 

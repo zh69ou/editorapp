@@ -39,7 +39,7 @@ var KisBpmChoiceSetsPopupCtrl = [ '$scope', '$http', '$translate', function($sco
     $scope.fsets = {
         tableAuth:{
             overtime:0,
-            backNode:0,
+            backNode:[""],
             stopNode:0,
             isDealer:0,
             parentAuth:[""],
