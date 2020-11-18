@@ -20,7 +20,9 @@ function setObjVal(obj,nobj){
                 obj[k] = setObjVal(obj[k],nobj[k])
             }
         }else{
-            obj[k] =  nobj[k]
+            if(nobj[k]){
+                obj[k] =  nobj[k]
+            }
         }
     }
     return obj
