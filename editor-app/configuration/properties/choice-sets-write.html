@@ -5,7 +5,7 @@
 			    <button type="button" class="close" data-dismiss="modal" aria-hidden="true" ng-click="close()">&times;</button>
 			    <h3>{{'PROPERTY.PROPERTY.EDIT.TITLE' | translate:property}}</h3>
 			</div>
-			<div class="modal-body">
+			<div class="modal-body form-horizontal">
 				<ul class="nav nav-tabs">
 				  <li ng-click="upindex(i)" ng-class="'nav-item'+(i==typeindex?' active':'')" ng-repeat="(i,v) in typelist">
 				    <a class="nav-link">{{v}}</a>
@@ -13,7 +13,7 @@
 				</ul>
 				<div ng-if="typeindex==0">
 					<div class="row row-no-gutter">
-	            		<div class="form-check form-check-inline">
+	            		<div class="form-check form-check-inline form-group">
             				<label class="col-sm-2 control-label text-right">{{'PROPERTY.CUSTOM.ISOVERTIME' | translate}}</label>
             				<div class="col-sm-10">
 		            			<input type="radio" id="customovertimeyes" class="form-check-input" ng-model="fsets.tableAuth.overtime" value="1" />
@@ -27,7 +27,7 @@
 				<div ng-if="typeindex==1">1</div>
 				<div ng-if="typeindex==2">
 					<div class="row row-no-gutter">
-	            		<div class="form-check form-check-inline"  ng-repeat="(i,v) in fsets.tableAuth.parentAuth  track by $index">
+	            		<div class="form-check form-check-inline form-group"  ng-repeat="(i,v) in fsets.tableAuth.parentAuth  track by $index">
             				<label class="col-sm-2 control-label text-right" for="{{'parentauth'+i}}">
 	            				<span ng-if="i===0">{{'PROPERTY.CUSTOM.PARENTAUTH' | translate}}</span>
 	            			</label>
@@ -39,7 +39,7 @@
 	            				</div>
             				</div>
 	            		</div>
-	            		<div class="form-check form-check-inline"  ng-repeat="(i,v) in fsets.tableAuth.fieldAuth  track by $index">
+	            		<div class="form-check form-check-inline form-group"  ng-repeat="(i,v) in fsets.tableAuth.fieldAuth  track by $index">
             				<label class="col-sm-2 control-label text-right" for="{{'fieldauth'+i}}">
             					<span ng-if="i===0">{{'PROPERTY.CUSTOM.FIELDAUTH' | translate}}</span>
 	            			</label>
@@ -51,7 +51,7 @@
 	            				</div>
             				</div>
 	            		</div>
-	            		<div class="form-check form-check-inline"  ng-repeat="(i,v) in fsets.tableAuth.showAuth  track by $index">
+	            		<div class="form-check form-check-inline form-group"  ng-repeat="(i,v) in fsets.tableAuth.showAuth  track by $index">
             				<label class="col-sm-2 control-label text-right" for="{{'showauth'+i}}">
             					<span ng-if="i===0">{{'PROPERTY.CUSTOM.SHOWAUTH' | translate}}</span>
             				</label>
@@ -63,7 +63,7 @@
 	            				</div>
             				</div>
 	            		</div>
-	            		<div class="form-check form-check-inline">
+	            		<div class="form-check form-check-inline form-group">
             				<label class="col-sm-2 control-label text-right">{{'PROPERTY.CUSTOM.ISBACKNODE' | translate}}</label>
             				<div class="col-sm-10">
 		            			<input type="radio" id="customovertimeyes" class="form-check-input" ng-model="fsets.tableAuth.backNode" value="1" />
@@ -72,7 +72,7 @@
 		            			<label class="form-check-label" for="customovertimeno" >{{'PROPERTY.CUSTOM.IS_NO' | translate}}</label>
 		            		</div>
 	            		</div>
-	            		<div class="form-check form-check-inline">
+	            		<div class="form-check form-check-inline form-group">
             				<label class="col-sm-2 control-label text-right">{{'PROPERTY.CUSTOM.ISSTOPNODE' | translate}}</label>
             				<div class="col-sm-10">
 		            			<input type="radio" id="customstopnodeyes" class="form-check-input" ng-model="fsets.tableAuth.stopNode" value="1" />
@@ -81,7 +81,7 @@
 		            			<label class="form-check-label" for="customstopnodeno" >{{'PROPERTY.CUSTOM.IS_NO' | translate}}</label>
 		            		</div>
 	            		</div>
-	            		<div class="form-check form-check-inline">
+	            		<div class="form-check form-check-inline form-group">
             				<label class="col-sm-2 control-label text-right">{{'PROPERTY.CUSTOM.ISDEALER' | translate}}</label>
             				<div class="col-sm-10">
 		            			<input type="radio" id="customisdealeryes" class="form-check-input" ng-model="fsets.tableAuth.isDealer" value="1" />
