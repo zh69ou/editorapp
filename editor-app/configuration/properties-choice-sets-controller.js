@@ -47,7 +47,32 @@ var KisBpmChoiceSetsPopupCtrl = [ '$scope', '$http', '$translate', function($sco
             parentAuth:[""],
             fieldAuth:[""],
             showAuth:[""],
-        }
+        },
+        message:{
+            sendUsers:[
+                {
+                    userId:null,
+                    noticeApplication:null,
+                    noticeChanel:'JC',
+                    noticeType:null,
+                }
+            ]
+        },
+        noticeAction:[
+            {
+                notices:[
+                    {
+                        noticeApplication:null,
+                        noticeChanel:null,
+                        noticeType:null,
+                    }
+                ],
+                serialCode:null,
+                time:null,
+                timeUnit:null,
+                type:null,
+            }
+        ]
     }
     $scope.typeindex = 0
     // angular.element('#jstree').jstree({
@@ -59,7 +84,8 @@ var KisBpmChoiceSetsPopupCtrl = [ '$scope', '$http', '$translate', function($sco
     }
     $scope.addbox = function(obj){
         if(obj){
-            obj.push('')
+            let nobj = typeof(obj[0])=='object'?{...obj[0]}:''
+            obj.push(nobj||'')
         }
     }
     $scope.delbox = function(obj,i){
