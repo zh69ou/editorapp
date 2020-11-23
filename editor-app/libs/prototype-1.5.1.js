@@ -1141,7 +1141,7 @@ Ajax.Request.prototype = Object.extend(new Ajax.Base(), {
 
   evalJSON: function() {
     try {
-      var json = this.getHeader('X-JSON');
+      var json = this.getHeader('Content-Type');
       return json ? json.evalJSON() : null;
     } catch (e) { return null }
   },
@@ -2044,7 +2044,7 @@ Element.ClassNames.prototype = {
 };
 
 Object.extend(Element.ClassNames.prototype, Enumerable);
-/* Portions of the Selector class are derived from Jack Slocum�۪s DomQuery,
+/* Portions of the Selector class are derived from Jack Slocum锟桔猻 DomQuery,
  * part of YUI-Ext version 0.40, distributed under the terms of an MIT-style
  * license.  Please see http://www.yui-ext.com/ for more information. */
 
