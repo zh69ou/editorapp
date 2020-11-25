@@ -144,7 +144,8 @@ var KisBpmChoiceSetsPopupCtrl = [ '$scope', '$http', '$translate', function($sco
                     WebuserName:null,     //用户名（前端用）
                     WebuserId:null,     //用户名id（前端用）
                     WebuserType:null,     //用户类型（前端用）
-                    noticeApplication:null,    //模板：应用id
+                    noticeIndex:"",    //模块值(前端用)
+                    noticeApplication:"",    //模板：应用id
                     noticeChanel:'JC',    //模板： 默认JC
                     noticeType:null,    //模板： 消息类型
                 }
@@ -171,6 +172,7 @@ var KisBpmChoiceSetsPopupCtrl = [ '$scope', '$http', '$translate', function($sco
     $scope.SelUserBox = false
     $scope.SelUserId = 0
     $scope.SelUsertype = 0
+    $scope.noticeapplication = []
     // angular.element('#jstree').jstree({
     //     "plugins" : [ "wholerow", "checkbox" ]
     // })
@@ -342,7 +344,37 @@ var KisBpmChoiceSetsPopupCtrl = [ '$scope', '$http', '$translate', function($sco
             obj.splice(i,1)
         }
     }
+    $scope.upNotice = function(obj){
+        let arr = obj['noticeIndex'].split('_')
+        obj['noticeApplication'] = arr[1]
+        obj['noticeType'] = arr[2]
+        obj['noticeChanel'] = arr[3]
+    }
 
+    $scope.getnoticlist = function(){
+        let params = {}
+        $http({
+                method: 'GET',
+                data: params,
+                ignoreErrors: true,
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
+                    'Authorization':window.localStorage.getItem('token')
+                },
+                url: KISBPM.URL.getNoticeapplicationList()
+            })
+            .success(function (data, status, headers, config) {
+                $scope.noticeapplication = data
+                $scope.status.loading = false;
+            })
+            .error(function (data, status, headers, config) {
+                $scope.error = {};
+                $scope.status.loading = false;
+            });
+    }
+
+    $scope.getnoticlist()
     setTimeout(()=>{
         try{
             let str = $scope.property.value
@@ -358,6 +390,7 @@ var KisBpmChoiceSetsPopupCtrl = [ '$scope', '$http', '$translate', function($sco
         str = str.replace(/\]\"/g,"]")
         str = str.replace(/\\\"/g,"\"")
         $scope.property.value = str
+        console.log('save',str)
         $scope.updatePropertyInModel($scope.property);
         $scope.close();
     };

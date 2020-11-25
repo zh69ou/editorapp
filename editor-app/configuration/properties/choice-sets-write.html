@@ -42,18 +42,23 @@
             				<label class="col-sm-2 control-label text-right" for="{{'noticeapplication'+i}}">
 	            				<span ng-if="i===0">{{'PROPERTY.CUSTOM.NOTICEAPPLICATION' | translate}}</span>
 	            			</label>
-            				<div class="col-sm-3">
+            				<div class="col-sm-5">
             					<div class="input-group">
-	            					<input type="text" class="form-control" id="{{'noticeapplication'+i}}" ng-model="fsets.message.sendUsers[i]['noticeApplication']" placeholder="{{'PROPERTY.CUSTOM.NOTICEAPPLICATION' | translate}}">
-            					</div>
-            				</div>
-            				<div class="col-sm-2">
-            					<div class="input-group">
-	            					<input type="text" class="form-control" ng-model="fsets.message.sendUsers[i]['noticeChanel']" placeholder="{{'PROPERTY.CUSTOM.NOTICEAPPLICATION' | translate}}">
+            						<select class="form-control" id="{{'noticeapplication'+i}}" ng-model="fsets.message.sendUsers[i]['noticeIndex']" ng-change="upNotice(fsets.message.sendUsers[i])">
+            							<option value="">{{'PROPERTY.CUSTOM.NOTICEAPPLICATION' | translate}}</option>
+            							<option value="{{val.id+'_'+val.noticeApplication+'_'+val.noticeType+'_'+val.noticeChanel}}" ng-selected="(val.id+'_'+val.noticeApplication+'_'+val.noticeType+'_'+val.noticeChanel)==fsets.message.sendUsers[i]['noticeIndex']" ng-repeat="(in,val) in noticeapplication  track by $index">
+	            							{{val.title}}
+	            						</option>
+            						</select>
 	            					<div class="input-group-addon col-but" ng-if="i===0" ng-click="addbox(fsets.message.sendUsers,fsetscopy.message.sendUsers)">+</div>
 	            					<div class="input-group-addon col-but" ng-if="i!==0" ng-click="delbox(fsets.message.sendUsers,i)">-</div>
-	            				</div>
+            					</div>
             				</div>
+            				<!-- <div class="col-sm-2">
+            					<div class="input-group">
+	            					<input type="text" class="form-control" ng-model="fsets.message.sendUsers[i]['noticeChanel']" placeholder="{{'PROPERTY.CUSTOM.NOTICEAPPLICATION' | translate}}">
+	            				</div>
+            				</div> -->
 	            		</div>
             		</div>
 				</div>
