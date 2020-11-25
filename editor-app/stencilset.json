@@ -38,9 +38,9 @@
         "properties" : [ {
             "id" : "documentation",
             "type" : "choice-sets",
-            "title" : "描述",
+            "title" : "参数",
             "value" : "",
-            "description" : "元素描述",
+            "description" : "元素参数",
             "popular" : true
         } ]
     }, {
