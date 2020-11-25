@@ -346,18 +346,18 @@ var KisBpmChoiceSetsPopupCtrl = [ '$scope', '$http', '$translate', function($sco
     setTimeout(()=>{
         try{
             let str = $scope.property.value
-            str = str.replace(/\"\[/g,"[")
-            str = str.replace(/\]\"/g,"]")
-            str = str.replace(/\\\"/g,"\"")
             let nobj = setObjVal($scope.fsets,JSON.parse(str))
             $scope.fsets = nobj
-            console.log(1,$scope.fsetscopy)
         }catch(err){}
         $scope.upindex($scope.typeindex)
     },100)
 
     $scope.save = function() {
-        $scope.property.value = JSON.stringify($scope.fsets)
+        let str = JSON.stringify($scope.fsets)
+        str = str.replace(/\"\[/g,"[")
+        str = str.replace(/\]\"/g,"]")
+        str = str.replace(/\\\"/g,"\"")
+        $scope.property.value = str
         $scope.updatePropertyInModel($scope.property);
         $scope.close();
     };
