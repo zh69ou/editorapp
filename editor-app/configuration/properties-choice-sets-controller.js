@@ -390,7 +390,6 @@ var KisBpmChoiceSetsPopupCtrl = [ '$scope', '$http', '$translate', function($sco
         str = str.replace(/\]\"/g,"]")
         str = str.replace(/\\\"/g,"\"")
         $scope.property.value = str
-        console.log('save',str)
         $scope.updatePropertyInModel($scope.property);
         $scope.close();
     };

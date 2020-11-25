@@ -52,5 +52,8 @@ KISBPM.URL = {
     },
     getNoticeapplicationList:function(){
         return ACTIVITI.CONFIG.authApi + '/base_noticeTemplate/getList';
+    },
+    getFormList:function(){
+        return ACTIVITI.CONFIG.mobile + '/form/getFormNameByName';
     }
 };

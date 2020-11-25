@@ -5,7 +5,33 @@
 			    <button type="button" class="close" data-dismiss="modal" aria-hidden="true" ng-click="close()">&times;</button>
 			    <h3>{{'PROPERTY.PROPERTY.EDIT.TITLE' | translate:property}}</h3>
 			</div>
-			<div class="modal-body">
+			<div class="modal-body form-horizontal">
+				<div class="row row-no-gutter">
+					<div class="form-check-inline">
+            			<label class="col-sm-2 form-check-label text-right" >{{'PROPERTY.CUSTOM.CUSTOMTYPE' | translate}}</label>
+            			<div class="col-sm-4">
+            				<select class="form-control" ng-model="setsobj[2]">
+            					<option value="info" ng-selected="setsobj[2]=='info'">{{'PROPERTY.CUSTOM.CUSTOMINFO' | translate}}</option>
+            					<option value="show" ng-selected="setsobj[2]=='show'">{{'PROPERTY.CUSTOM.CUSTOMSHOW' | translate}}</option>
+            				</select>
+            			</div>
+            			<label class="col-sm-2 form-check-label text-right" >{{'PROPERTY.CUSTOM.CUSTOMFORM' | translate}}</label>
+            			<div class="col-sm-4">
+            				<select class="form-control" ng-model="setsobj[3]">
+            					<option value="{{v.id}}" ng-selected="setsobj[3]==v.id" ng-repeat="(i,v) in oplist  track by $index">{{v.introduction}}</option>
+            				</select>
+            				<!-- <select class="form-control" ng-model="setsobj[3]" ng-click="showbox($event.target)" ng-if="!opshow">
+            					<option value="{{v.id}}" ng-selected="setsobj[3]==v.id" ng-repeat="(i,v) in oplist  track by $index">{{v.introduction}}</option>
+            				</select> -->
+            				<div ng-if="opshow" class="searchbox">
+            					<input type="text" id="searchwd" class="form-control" ng-model="searchwd" ng-change="searwords(searchwd)" />
+            					<ul class="list-unstyled">
+								  <li ng-repeat="(i,v) in opsellist  track by $index">{{v.introduction}}</li>
+								</ul>
+            				</div>
+            			</div>
+        			</div>
+				</div>
 			</div>
 			<div class="modal-footer">
 			    <button ng-click="cancel()" class="btn btn-primary" translate>ACTION.CANCEL</button>

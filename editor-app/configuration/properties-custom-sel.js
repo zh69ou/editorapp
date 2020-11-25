@@ -9,20 +9,50 @@ var KisBpmCustomSelCtrl = [ '$scope', '$modal', '$timeout', '$translate', functi
     $modal(opts);
 }];
 
-var KisBpmCustomSelPopupCtrl = [ '$scope', '$http', '$translate', function($scope, $http, $translate) {
+function deepClone(obj){
+    let _toString = Object.prototype.toString
+    if (!obj || typeof obj !== 'object') {
+        return obj
+    }
+    if (_toString.call(obj) === '[object Date]') {
+        return new Date(obj.getTime())
+    }
+    let result = Array.isArray(obj) ? [] : obj.constructor ? new obj.constructor() : {}
 
-    $scope.typelist = ['人员','部门','岗位','群组'];
-    $scope.typeindex = 0
-    // angular.element('#jstree').jstree({
-    //     "plugins" : [ "wholerow", "checkbox" ]
-    // })
-    $scope.treebox = null
+    for (let key in obj) {
+    result[key] = deepClone(obj[key])
+    }
+
+    return result
+}
+
+var KisBpmCustomSelPopupCtrl = [ '$scope', '$http', '$translate', function($scope, $http, $translate) {
+    $scope.oplist = []
+    $scope.opsellist = []
+    $scope.opshow = false
+    $scope.searchwd = ''
+    $scope.setsobj = ["","customform","info",""]
+    let con = $scope.property.value.split('/')
+    if(Array.isArray(con)&&con.length==4){
+        $scope.setsobj = con
+    }
+    $scope.showbox = function(obj){
+        $scope.opshow = true
+        console.log(obj)
+    }
+    $scope.searwords = function(words){
+        $scope.opsellist = $scope.oplist.filter(res=>{
+            return res.introduction.indexOf(words)>=0
+        })
+    }
     $scope.getList = function(){
-        let url = KISBPM.URL.getCustomList()
+        let url = KISBPM.URL.getFormList()
         let arr = []
-        let params = {}
+        let params = {
+            introduction:''
+        }
         $http({
-            method: 'POST',
+            method: 'GET',
             data: params,
             ignoreErrors: true,
             headers: {
@@ -30,17 +60,11 @@ var KisBpmCustomSelPopupCtrl = [ '$scope', '$http', '$translate', function($scop
                 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
                 'Authorization':window.localStorage.getItem('token')
             },
-            // transformRequest: function (obj) {
-            //     var str = [];
-            //     for (var p in obj) {
-            //     str.push(encodeURIComponent(p) + "=" + encodeURIComponent(obj[p]));
-            //     }
-            //     return str.join("&");
-            // },
             url: url
         })
         .success(function (data, status, headers, config) {
-            console.log(data)
+            $scope.oplist = data
+            $scope.opsellist = deepClone(data)
         })
         .error(function (data, status, headers, config) {
             $scope.error = {};
@@ -48,12 +72,12 @@ var KisBpmCustomSelPopupCtrl = [ '$scope', '$http', '$translate', function($scop
         });
     }
 
-    setTimeout(()=>{
-        $scope.upindex($scope.typeindex)
-    },100)
+    $scope.getList()
 
     $scope.save = function() {
-
+        let str = $scope.setsobj.join('/')
+        // console.log(str)
+        $scope.property.value = str
         $scope.updatePropertyInModel($scope.property);
         $scope.close();
     };
