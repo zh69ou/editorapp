@@ -9,56 +9,71 @@ var KisBpmChoiceFirmCtrl = [ '$scope', '$modal', '$timeout', '$translate', funct
     $modal(opts);
 }];
 
-function checkData(arr,$scope,narr=[]){
+function checkData(arr,$scope){
     if(Array.isArray(arr)){
-        narr = narr.concat(arr.map(res=>{
+        let narr = []
+        arr.forEach(res=>{
             if(res.children){
-                narr = narr.concat(checkData(res.children,$scope,narr))
+                let carr = checkData(res.children,$scope)
+                narr = narr.concat(carr)
             }
+        })
+        let nearr = arr.map(res=>{
             let obj = {
                 id:res.departmentId,
                 parent:res.parentId?res.parentId:'#',
                 text:res.departmentName,
-                state: {checked: $scope.property.value.assignment.assignee&&$scope.property.value.assignment.assignee.indexOf(res.departmentId)!= -1?true:false}
+                state: {selected: $scope.property.value.assignment.assignee&&$scope.property.value.assignment.assignee.indexOf(res.departmentId)!= -1?true:false}
             }
             return obj
-        }))
+        })
+        narr = narr.concat(nearr)
         return narr
     }
 }
 
-function checkUserData(arr,$scope,narr=[]){
+function checkUserData(arr,$scope){
     if(Array.isArray(arr)){
-        narr = narr.concat(arr.map(res=>{
+        let narr = []
+        arr.forEach(res=>{
             if(res.children){
-                narr = narr.concat(checkUserData(res.children,$scope,narr))
+                let carr = checkUserData(res.children,$scope)
+                narr = narr.concat(carr)
             }
+        })
+        let nearr = arr.map(res=>{
             let obj = {
                 id:res.userId,
                 parent:res.parentId?res.parentId:'#',
                 text:res.userFullName,
-                state: {checked: $scope.property.value.assignment.assignee&&$scope.property.value.assignment.assignee.indexOf(res.userId)!= -1?true:false}
+                state: {selected: $scope.property.value.assignment.assignee&&$scope.property.value.assignment.assignee.indexOf(res.userId)!= -1?true:false}
             }
             return obj
-        }))
+        })
+        narr = narr.concat(nearr)
         return narr
     }
 }
 
-function checkGroupData(arr,$scope,narr=[]){
+function checkGroupData(arr,$scope){
     if(Array.isArray(arr)){
-        narr = narr.concat(arr.map(res=>{
+        let narr = []
+        arr.forEach(res=>{
             if(res.children){
-                narr = narr.concat(checkGroupData(res.children,$scope,narr))
+                let carr = checkGroupData(res.children,$scope)
+                narr = narr.concat(carr)
             }
+        })
+        let nearr = arr.map(res=>{
             let obj = {
                 id:res.id,
                 parent:res.parentId?res.parentId:'#',
                 text:res.name,
-                state: {checked: $scope.property.value.assignment.assignee&&$scope.property.value.assignment.assignee.indexOf(res.id)!= -1?true:false}
+                state: {selected: $scope.property.value.assignment.assignee&&$scope.property.value.assignment.assignee.indexOf(res.id)!= -1?true:false}
             }
             return obj
-        }))
+        })
+        narr = narr.concat(nearr)
         return narr
     }
 }
@@ -77,10 +92,12 @@ var KisBpmChoiceFirmPopupCtrl = [ '$scope', '$http', '$translate', function($sco
     };
     $scope.cacheval = ''
     $scope.typeindex = 0
+    if($scope.property.value.assignment.assigneeindex){
+        $scope.typeindex = $scope.property.value.assignment.assigneeindex
+    }
     // angular.element('#jstree').jstree({
     //     "plugins" : [ "wholerow", "checkbox" ]
     // })
-    $scope.treebox = null
     $scope.upindex = function(i){
         $scope.typeindex = i
         let url = urllist[i]?urllist[i]:urllist[0]
@@ -102,13 +119,14 @@ var KisBpmChoiceFirmPopupCtrl = [ '$scope', '$http', '$translate', function($sco
             .success(function (data, status, headers, config) {
                 let arr = checkData(data,$scope)
                 $scope.status.loading = false;
-                $scope.treebox = angular.element('#jstree').jstree({
+                angular.element('#jstree').jstree({
                     'plugins':["wholerow","checkbox"],
                     'core' : {
                         "multiple": false,
                         'data' :arr,
                     }
-                }).on('changed.jstree',(e,data)=>{
+                })
+                angular.element('#jstree').on('changed.jstree',(e,data)=>{
                     $scope.cacheval = 'dpt_'+data.selected[0]
                 })
             })
@@ -131,13 +149,14 @@ var KisBpmChoiceFirmPopupCtrl = [ '$scope', '$http', '$translate', function($sco
             .success(function (data, status, headers, config) {
                 let arr = checkUserData(data,$scope)
                 $scope.status.loading = false;
-                $scope.treebox = angular.element('#jstree').jstree({
-                    'plugins':["wholerow","checkbox"],
+                angular.element('#jstree').jstree({
+                    'plugins':["wholerow","checkbox","state"],
                     'core' : {
                         "multiple": false,
                         'data' :arr,
                     }
-                }).on('changed.jstree',(e,data)=>{
+                })
+                angular.element('#jstree').on('changed.jstree',(e,data)=>{
                     $scope.cacheval = 'user_'+data.selected[0]
                 })
             })
@@ -161,7 +180,7 @@ var KisBpmChoiceFirmPopupCtrl = [ '$scope', '$http', '$translate', function($sco
             //     let arr = checkUserData(data,$scope)
             //     $scope.status.loading = false;
             //     $scope.treebox = angular.element('#jstree').jstree({
-            //         'plugins':["wholerow","checkbox"],
+            //         'plugins':["wholerow","checkbox","state"],
             //         'core' : {
             //             "multiple": false,
             //             'data' :arr,
@@ -190,13 +209,14 @@ var KisBpmChoiceFirmPopupCtrl = [ '$scope', '$http', '$translate', function($sco
             .success(function (data, status, headers, config) {
                 let arr = checkGroupData(data,$scope)
                 $scope.status.loading = false;
-                $scope.treebox = angular.element('#jstree').jstree({
-                    'plugins':["wholerow","checkbox"],
+                angular.element('#jstree').jstree({
+                    'plugins':["wholerow","checkbox","state"],
                     'core' : {
                         "multiple": false,
                         'data' :arr,
                     }
-                }).on('changed.jstree',(e,data)=>{
+                })
+                angular.element('#jstree').on('changed.jstree',(e,data)=>{
                     $scope.cacheval = 'grp_'+data.selected[0]
                 })
             })
@@ -213,6 +233,7 @@ var KisBpmChoiceFirmPopupCtrl = [ '$scope', '$http', '$translate', function($sco
 
     $scope.save = function() {
         $scope.property.value.assignment.assignee = $scope.cacheval
+        $scope.property.value.assignment.assigneeindex = $scope.typeindex
         $scope.updatePropertyInModel($scope.property);
         $scope.close();
     };
