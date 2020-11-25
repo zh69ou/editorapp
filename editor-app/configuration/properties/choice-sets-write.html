@@ -36,7 +36,7 @@
 	            			</label>
             				<div class="col-sm-3">
             					<div class="input-group">
-	            					<input type="text" class="form-control" id="{{'sendusers'+i}}" ng-model="fsets.message.sendUsers[i]['userId']" placeholder="{{'PROPERTY.CUSTOM.SENDUSERS' | translate}}">
+	            					<input type="text" class="form-control" id="{{'sendusers'+i}}" ng-focus="selUser(i)" ng-model="fsets.message.sendUsers[i]['WebuserName']" placeholder="{{'PROPERTY.CUSTOM.SENDUSERS' | translate}}">
 	            				</div>
             				</div>
             				<label class="col-sm-2 control-label text-right" for="{{'noticeapplication'+i}}">
@@ -50,7 +50,7 @@
             				<div class="col-sm-2">
             					<div class="input-group">
 	            					<input type="text" class="form-control" ng-model="fsets.message.sendUsers[i]['noticeChanel']" placeholder="{{'PROPERTY.CUSTOM.NOTICEAPPLICATION' | translate}}">
-	            					<div class="input-group-addon col-but" ng-if="i===0" ng-click="addbox(fsets.message.sendUsers)">+</div>
+	            					<div class="input-group-addon col-but" ng-if="i===0" ng-click="addbox(fsets.message.sendUsers,fsetscopy.message.sendUsers)">+</div>
 	            					<div class="input-group-addon col-but" ng-if="i!==0" ng-click="delbox(fsets.message.sendUsers,i)">-</div>
 	            				</div>
             				</div>
@@ -66,7 +66,7 @@
             				<div class="col-sm-10">
             					<div class="input-group">
 	            					<input type="text" class="form-control" id="{{'parentauth'+i}}" ng-model="fsets.tableAuth.parentAuth[i]" placeholder="{{'PROPERTY.CUSTOM.PARENTAUTH' | translate}}">
-	            					<div class="input-group-addon col-but" ng-if="i===0" ng-click="addbox(fsets.tableAuth.parentAuth)">+</div>
+	            					<div class="input-group-addon col-but" ng-if="i===0" ng-click="addbox(fsets.tableAuth.parentAuth,fsetscopy.tableAuth.parentAuth)">+</div>
 	            					<div class="input-group-addon col-but" ng-if="i!==0" ng-click="delbox(fsets.tableAuth.parentAuth,i)">-</div>
 	            				</div>
             				</div>
@@ -78,7 +78,7 @@
             				<div class="col-sm-10">
             					<div class="input-group">
 	            					<input type="text" class="form-control" id="{{'fieldauth'+i}}" ng-model="fsets.tableAuth.fieldAuth[i]" placeholder="{{'PROPERTY.CUSTOM.FIELDAUTH' | translate}}">
-	            					<div class="input-group-addon col-but" ng-if="i===0" ng-click="addbox(fsets.tableAuth.fieldAuth)">+</div>
+	            					<div class="input-group-addon col-but" ng-if="i===0" ng-click="addbox(fsets.tableAuth.fieldAuth,fsetscopy.tableAuth.fieldAuth)">+</div>
 	            					<div class="input-group-addon col-but" ng-if="i!==0" ng-click="delbox(fsets.tableAuth.fieldAuth,i)">-</div>
 	            				</div>
             				</div>
@@ -90,7 +90,7 @@
             				<div class="col-sm-10">
             					<div class="input-group">
 	            					<input type="text" class="form-control" id="{{'showauth'+i}}" ng-model="fsets.tableAuth.showAuth[i]" placeholder="{{'PROPERTY.CUSTOM.SHOWAUTH' | translate}}">
-	            					<div class="input-group-addon col-but" ng-if="i===0" ng-click="addbox(fsets.tableAuth.showAuth)">+</div>
+	            					<div class="input-group-addon col-but" ng-if="i===0" ng-click="addbox(fsets.tableAuth.showAuth,fsetscopy.tableAuth.showAuth)">+</div>
 	            					<div class="input-group-addon col-but" ng-if="i!==0" ng-click="delbox(fsets.tableAuth.showAuth,i)">-</div>
 	            				</div>
             				</div>
@@ -102,7 +102,7 @@
             				<div class="col-sm-10">
             					<div class="input-group">
 	            					<input type="text" class="form-control" id="{{'backnode'+i}}" ng-model="fsets.tableAuth.backNode[i]" placeholder="{{'PROPERTY.CUSTOM.ISBACKNODE' | translate}}">
-	            					<div class="input-group-addon col-but" ng-if="i===0" ng-click="addbox(fsets.tableAuth.backNode)">+</div>
+	            					<div class="input-group-addon col-but" ng-if="i===0" ng-click="addbox(fsets.tableAuth.backNode,fsetscopy.tableAuth.backNode)">+</div>
 	            					<div class="input-group-addon col-but" ng-if="i!==0" ng-click="delbox(fsets.tableAuth.backNode,i)">-</div>
 	            				</div>
 		            		</div>
@@ -134,6 +134,15 @@
 		            		</div>
 	            		</div>
 	            	</div>
+				</div>
+				<div class="seluserbox" ng-if="SelUserBox">
+					<ul class="nav nav-tabs">
+					  <li ng-click="seluserindex(i)" ng-class="'nav-item'+(i==SelUsertype?' active':'')" ng-repeat="(i,v) in usertypelist">
+					    <a class="nav-link">{{v}}</a>
+					  </li>
+					</ul>
+					<div id="jstree"></div>
+					<div><button ng-click="closeuserbox()" class="btn btn-primary ng-scope" translate="">确定</button></div>
 				</div>
 			</div>
 			<div class="modal-footer">
