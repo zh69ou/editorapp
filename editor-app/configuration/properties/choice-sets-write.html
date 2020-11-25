@@ -12,7 +12,7 @@
 				  </li>
 				</ul>
 				<div ng-if="typeindex==0">
-					<div class="row row-no-gutter">
+					<!-- <div class="row row-no-gutter">
 	            		<div class="form-check form-check-inline form-group">
             				<label class="col-sm-2 control-label text-right">{{'PROPERTY.CUSTOM.ISOVERTIME' | translate}}</label>
             				<div class="col-sm-10">
@@ -26,6 +26,71 @@
 			            		</div>
 		            		</div>
 	            		</div>
+	            	</div> -->
+	            	<div class="row row-no-gutter"  ng-repeat="(i,v) in fsets.noticeAction  track by $index">
+	            		<div class="form-check-inline clearfix">
+	            			<label class="col-sm-2 form-check-label text-right" for="notictype[i]" >{{'PROPERTY.CUSTOM.NOTICTYPE' | translate}}</label>
+	            			<div class="col-sm-2">
+	            				<select class="form-control" id="{{'notictype'+i}}" ng-model="fsets.noticeAction[i]['type']">
+	            					<option value="1" ng-selected="fsets.noticeAction[i]['type']=='1'">{{'PROPERTY.CUSTOM.TYPEONE' | translate}}</option>
+	            					<option value="2" ng-selected="fsets.noticeAction[i]['type']=='2'">{{'PROPERTY.CUSTOM.TYPETWO' | translate}}</option>
+	            					<option value="3" ng-selected="fsets.noticeAction[i]['type']=='3'">{{'PROPERTY.CUSTOM.TYPETHREE' | translate}}</option>
+	            				</select>
+	            			</div>
+            			</div>
+	            		<div class="form-check-inline">
+            				<label class="col-sm-2 control-label text-right">{{'PROPERTY.CUSTOM.SERIALCODE' | translate}}</label>
+            				<div class="col-sm-10">
+            					<div class="radio-inline">
+			            			<input type="radio" id="customstopnodeyes" class="form-check-input" ng-model="fsets.noticeAction[i]['serialCode']" value="{{1}}" />
+			            			<label class="form-check-label" for="customstopnodeyes" >{{'PROPERTY.CUSTOM.IS_YES' | translate}}</label>
+		            			</div>
+		            			<div class="radio-inline">
+			            			<input type="radio" id="customstopnodeno" class="form-check-input" ng-model="fsets.noticeAction[i]['serialCode']" value="{{0}}" />
+			            			<label class="form-check-label" for="customstopnodeno" >{{'PROPERTY.CUSTOM.IS_NO' | translate}}</label>
+			            		</div>
+		            		</div>
+	            		</div>
+	            		<div class="form-check-inline">
+	            			<label class="col-sm-2 form-check-label text-right" for="jumptime[i]" >{{'PROPERTY.CUSTOM.JUMPTIME' | translate}}</label>
+	            			<div class="col-sm-6">
+	            				<input type="text" id="jumptime[i]" class="form-control" ng-model="fsets.noticeAction[i]['time']" value="{{1}}" />
+	            			</div>
+	            			<div class="col-sm-4">
+	            				<select class="form-control" id="{{'timeUnit'+i}}" ng-model="fsets.noticeAction[i]['timeUnit']">
+	            					<option value="D" ng-selected="fsets.noticeAction[i]['timeUnit']=='D'">{{'PROPERTY.CUSTOM.D' | translate}}</option>
+	            					<option value="H" ng-selected="fsets.noticeAction[i]['timeUnit']=='H'">{{'PROPERTY.CUSTOM.H' | translate}}</option>
+	            					<option value="M" ng-selected="fsets.noticeAction[i]['timeUnit']=='M'">{{'PROPERTY.CUSTOM.M' | translate}}</option>
+	            				</select>
+	            			</div>
+            			</div>
+            			<div class="form-check-inline clearfix" ng-repeat="(ii,vv) in fsets.noticeAction[i]['notices']  track by $index">
+	            			<label class="col-sm-2 form-check-label text-right" for="notices[i]" >{{'PROPERTY.CUSTOM.NOTICES' | translate}}</label>
+            				<label class="col-sm-2 form-check-label text-right" for="notices[i][ii]" >{{'PROPERTY.CUSTOM.NOTICESTYPE' | translate}}</label>
+	            			<div class="col-sm-2">
+	            				<select class="form-control" id="{{'notices'+i+ii}}" ng-model="fsets.noticeAction[i]['notices'][ii]['noticeApplication']">
+	            					<option value="1" ng-selected="fsets.noticeAction[i]['notices'][ii]['noticeApplication']=='1'">{{'PROPERTY.CUSTOM.TYPEONE' | translate}}</option>
+	            					<option value="2" ng-selected="fsets.noticeAction[i]['notices'][ii]['noticeApplication']=='2'">{{'PROPERTY.CUSTOM.TYPETWO' | translate}}</option>
+	            					<option value="3" ng-selected="fsets.noticeAction[i]['notices'][ii]['noticeApplication']=='3'">{{'PROPERTY.CUSTOM.TYPETHREE' | translate}}</option>
+	            				</select>
+	            			</div>
+            				<label class="col-sm-2 form-check-label text-right" for="notices[i][ii]" >{{'PROPERTY.CUSTOM.NOTICETYPE' | translate}}</label>
+	            			<div class="col-sm-2">
+	            				<div class="input-group">
+		            				<select class="form-control" id="{{'notices'+i+ii}}" ng-model="fsets.noticeAction[i]['notices'][ii]['noticeType']">
+		            					<option value="1" ng-selected="fsets.noticeAction[i]['notices'][ii]['noticeType']=='1'">{{'PROPERTY.CUSTOM.NOTICEMSG' | translate}}</option>
+		            					<option value="2" ng-selected="fsets.noticeAction[i]['notices'][ii]['noticeType']=='2'">{{'PROPERTY.CUSTOM.NOTICEEMAIL' | translate}}</option>
+		            					<option value="3" ng-selected="fsets.noticeAction[i]['notices'][ii]['noticeType']=='3'">{{'PROPERTY.CUSTOM.NOTICEWECHAT' | translate}}</option>
+		            				</select>
+		            				<div class="input-group-addon col-but" ng-if="ii===0" ng-click="addbox(fsets.noticeAction[i]['notices'],fsetscopy.noticeAction[i]['notices'])">+</div>
+	            					<div class="input-group-addon col-but" ng-if="ii!==0" ng-click="delbox(fsets.noticeAction[i]['notices'],ii)">-</div>
+		            			</div>
+	            			</div>
+            			</div>
+            			<div class="col-sm-12 text-center">
+		            		<button type="button" class="btn btn-default" ng-if="i===0" ng-click="addbox(fsets.noticeAction,fsetscopy.noticeAction)">增加</button>
+		            		<button type="button" class="btn btn-default" ng-if="i!==0" ng-click="delbox(fsets.noticeAction,i)">删除</button>
+            			</div>
 	            	</div>
 				</div>
 				<div ng-if="typeindex==1">

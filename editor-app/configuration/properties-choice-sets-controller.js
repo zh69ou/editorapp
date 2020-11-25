@@ -155,15 +155,15 @@ var KisBpmChoiceSetsPopupCtrl = [ '$scope', '$http', '$translate', function($sco
             {
                 notices:[ //预警
                     {
-                        noticeApplication:null, //用途1注册/2忘记密码/3通用流程
+                        noticeApplication:"1", //用途1注册/2忘记密码/3通用流程
                         noticeChanel:'JC',    //渠道类型默认JC
-                        noticeType:null,    //信息类型 1短信/2邮件/3企业微信
+                        noticeType:"1",    //信息类型 1短信/2邮件/3企业微信
                     }
                 ],
-                serialCode:null,    //是否排除节假日
-                time:null,    //间隔时间
-                timeUnit:null,    // D天，H小时，M分钟
-                type:null,    // 1超时，2预警，3执行时间
+                serialCode:0,    //是否排除节假日
+                time:'',    //间隔时间
+                timeUnit:'D',    // D天，H小时，M分钟
+                type:'1',    // 1超时，2预警，3执行时间
             }
         ]
     }
