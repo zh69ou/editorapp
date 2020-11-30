@@ -3,4 +3,5 @@
 <span ng-if="!property.noValue&&property.value=='Parallel'">{{'并行'|limitTo:20}}</span>
 <span ng-if="!property.noValue&&property.value=='Sequential'">{{'顺序'|limitTo:20}}</span>
 <span ng-if="!property.noValue && property.value != null && property.value.length > 20">...</span>
+<span ng-if="!property.noValue && property.value != null && typeof(property.value)!='object'">{{property.value}}</span>
 <span ng-if="property.noValue" translate>PROPERTY.EMPTY</span>
