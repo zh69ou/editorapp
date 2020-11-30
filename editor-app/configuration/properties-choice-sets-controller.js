@@ -128,11 +128,12 @@ var KisBpmChoiceSetsPopupCtrl = [ '$scope', '$http', '$translate', function($sco
         loading: false
     };
     $scope.fsets = {
+        backNode:[""],    // 驳回
+        stopNode:0,     //终结
+        isDealer:0,    //是否时经销商
+        isParallelNode:0,    //是否并行
         tableAuth:{
             overtime:0,
-            backNode:[""],    // 驳回
-            stopNode:0,     //终结
-            isDealer:0,    //是否时经销商
             parentAuth:[""],    //可控制权限
             fieldAuth:[""],    //子标签控制
             showAuth:[""],    //显示节点ID

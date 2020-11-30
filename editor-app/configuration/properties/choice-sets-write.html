@@ -165,15 +165,15 @@
 	            				</div>
             				</div>
 	            		</div>
-	            		<div class="form-check form-check-inline form-group" ng-repeat="(i,v) in fsets.tableAuth.backNode  track by $index">
+	            		<div class="form-check form-check-inline form-group" ng-repeat="(i,v) in fsets.backNode  track by $index">
             				<label class="col-sm-2 control-label text-right" for="{{'backnode'+i}}">
 	            				<span ng-if="i===0">{{'PROPERTY.CUSTOM.ISBACKNODE' | translate}}</span>
 	            			</label>
             				<div class="col-sm-10">
             					<div class="input-group">
-	            					<input type="text" class="form-control" id="{{'backnode'+i}}" ng-model="fsets.tableAuth.backNode[i]" placeholder="{{'PROPERTY.CUSTOM.ISBACKNODE' | translate}}">
-	            					<div class="input-group-addon col-but" ng-if="i===0" ng-click="addbox(fsets.tableAuth.backNode,fsetscopy.tableAuth.backNode)">+</div>
-	            					<div class="input-group-addon col-but" ng-if="i!==0" ng-click="delbox(fsets.tableAuth.backNode,i)">-</div>
+	            					<input type="text" class="form-control" id="{{'backnode'+i}}" ng-model="fsets.backNode[i]" placeholder="{{'PROPERTY.CUSTOM.ISBACKNODE' | translate}}">
+	            					<div class="input-group-addon col-but" ng-if="i===0" ng-click="addbox(fsets.backNode,fsetscopy.backNode)">+</div>
+	            					<div class="input-group-addon col-but" ng-if="i!==0" ng-click="delbox(fsets.backNode,i)">-</div>
 	            				</div>
 		            		</div>
 	            		</div>
@@ -181,11 +181,11 @@
             				<label class="col-sm-2 control-label text-right">{{'PROPERTY.CUSTOM.ISSTOPNODE' | translate}}</label>
             				<div class="col-sm-10">
             					<div class="radio-inline">
-			            			<input type="radio" id="customstopnodeyes" class="form-check-input" ng-model="fsets.tableAuth.stopNode" value="{{1}}" />
+			            			<input type="radio" id="customstopnodeyes" class="form-check-input" ng-model="fsets.stopNode" value="{{1}}" />
 			            			<label class="form-check-label" for="customstopnodeyes" >{{'PROPERTY.CUSTOM.IS_YES' | translate}}</label>
 		            			</div>
 		            			<div class="radio-inline">
-			            			<input type="radio" id="customstopnodeno" class="form-check-input" ng-model="fsets.tableAuth.stopNode" value="{{0}}" />
+			            			<input type="radio" id="customstopnodeno" class="form-check-input" ng-model="fsets.stopNode" value="{{0}}" />
 			            			<label class="form-check-label" for="customstopnodeno" >{{'PROPERTY.CUSTOM.IS_NO' | translate}}</label>
 			            		</div>
 		            		</div>
@@ -194,11 +194,24 @@
             				<label class="col-sm-2 control-label text-right">{{'PROPERTY.CUSTOM.ISDEALER' | translate}}</label>
             				<div class="col-sm-10">
             					<div class="radio-inline">
-			            			<input type="radio" id="customisdealeryes" class="form-check-input" ng-model="fsets.tableAuth.isDealer" value="{{1}}" />
+			            			<input type="radio" id="customisdealeryes" class="form-check-input" ng-model="fsets.isDealer" value="{{1}}" />
 			            			<label class="form-check-label" for="customisdealeryes" >{{'PROPERTY.CUSTOM.IS_YES' | translate}}</label>
 			            		</div>
 			            		<div class="radio-inline">
-			            			<input type="radio" id="customtranslateno" class="form-check-input" ng-model="fsets.tableAuth.isDealer" value="{{0}}" />
+			            			<input type="radio" id="customtranslateno" class="form-check-input" ng-model="fsets.isDealer" value="{{0}}" />
+			            			<label class="form-check-label" for="customtranslateno" >{{'PROPERTY.CUSTOM.IS_NO' | translate}}</label>
+			            		</div>
+		            		</div>
+	            		</div>
+	            		<div class="form-check form-check-inline form-group">
+            				<label class="col-sm-2 control-label text-right">{{'PROPERTY.CUSTOM.ISPARALLELNODE' | translate}}</label>
+            				<div class="col-sm-10">
+            					<div class="radio-inline">
+			            			<input type="radio" id="customisdealeryes" class="form-check-input" ng-model="fsets.isParallelNode" value="{{1}}" />
+			            			<label class="form-check-label" for="customisdealeryes" >{{'PROPERTY.CUSTOM.IS_YES' | translate}}</label>
+			            		</div>
+			            		<div class="radio-inline">
+			            			<input type="radio" id="customtranslateno" class="form-check-input" ng-model="fsets.isParallelNode" value="{{0}}" />
 			            			<label class="form-check-label" for="customtranslateno" >{{'PROPERTY.CUSTOM.IS_NO' | translate}}</label>
 			            		</div>
 		            		</div>
