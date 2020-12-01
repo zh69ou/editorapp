@@ -125,8 +125,10 @@ var KisBpmChoiceSetsPopupCtrl = [ '$scope', '$http', '$translate', function($sco
         KISBPM.URL.getGrop(),
     ];
     $scope.status = {
-        loading: false
+        loading: false,
+        showbox:0
     };
+    $scope.jsonval = $scope.property.value
     $scope.fsets = {
         backNode:[""],    // 驳回
         stopNode:0,     //终结
@@ -167,6 +169,18 @@ var KisBpmChoiceSetsPopupCtrl = [ '$scope', '$http', '$translate', function($sco
                 type:'1',    // 1超时，2预警，3执行时间
             }
         ]
+    }
+    $scope.changebox = function(n){
+        if($scope.status.showbox==0){
+            let str = JSON.stringify($scope.fsets)
+            str = str.replace(/\"\[/g,"[")
+            str = str.replace(/\]\"/g,"]")
+            str = str.replace(/\\\"/g,"\"")
+            $scope.jsonval = str
+        }else if($scope.status.showbox==1){
+            $scope.fsets = setObjVal($scope.fsets,JSON.parse($scope.jsonval))
+        }
+        $scope.status.showbox = n
     }
     $scope.fsetscopy = deepClone($scope.fsets)
     $scope.typeindex = 0
@@ -386,11 +400,15 @@ var KisBpmChoiceSetsPopupCtrl = [ '$scope', '$http', '$translate', function($sco
     },100)
 
     $scope.save = function() {
-        let str = JSON.stringify($scope.fsets)
-        str = str.replace(/\"\[/g,"[")
-        str = str.replace(/\]\"/g,"]")
-        str = str.replace(/\\\"/g,"\"")
-        $scope.property.value = str
+        if($scope.status.showbox==0){
+            let str = JSON.stringify($scope.fsets)
+            str = str.replace(/\"\[/g,"[")
+            str = str.replace(/\]\"/g,"]")
+            str = str.replace(/\\\"/g,"\"")
+            $scope.property.value = str
+        }else if($scope.status.showbox==1){
+            $scope.property.value = $scope.jsonval
+        }
         $scope.updatePropertyInModel($scope.property);
         $scope.close();
     };

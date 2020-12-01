@@ -1522,3 +1522,12 @@ button.selection:active, button.selection:focus {
 .fullscreen .modal-header h3 .summary {
     font-size: 13px;
 }
+.showbox,.jsonbox{
+    position: relative;
+}
+.showbox .changebut,.jsonbox .changebut{
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    z-index: 1;
+}
