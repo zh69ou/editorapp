@@ -158,7 +158,7 @@ var KisBpmChoiceSetsPopupCtrl = [ '$scope', '$http', '$translate', function($sco
             {
                 notices:[ //预警
                     {
-                        noticeApplication:"1", //用途1注册/2忘记密码/3通用流程
+                        noticeApplication:"", //用途1注册/2忘记密码/3通用流程
                         noticeChanel:'JC',    //渠道类型默认JC
                         noticeType:"1",    //信息类型 1短信/2邮件/3企业微信
                     }
@@ -166,7 +166,7 @@ var KisBpmChoiceSetsPopupCtrl = [ '$scope', '$http', '$translate', function($sco
                 serialCode:0,    //是否排除节假日
                 time:'',    //间隔时间
                 timeUnit:'D',    // D天，H小时，M分钟
-                type:'1',    // 1超时，2预警，3执行时间
+                type:'',    // 1超时，2预警，3执行时间
             }
         ]
     }
@@ -188,6 +188,8 @@ var KisBpmChoiceSetsPopupCtrl = [ '$scope', '$http', '$translate', function($sco
     $scope.SelUserId = 0
     $scope.SelUsertype = 0
     $scope.noticeapplication = []
+    $scope.applicationOptions = []
+    $scope.typeOptions = []
     // angular.element('#jstree').jstree({
     //     "plugins" : [ "wholerow", "checkbox" ]
     // })
@@ -198,6 +200,27 @@ var KisBpmChoiceSetsPopupCtrl = [ '$scope', '$http', '$translate', function($sco
     }
     $scope.closeuserbox = function(){
         $scope.SelUserBox = false
+    }
+    $scope.seloptions = function(){
+        $http({
+            method:'POST',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
+                'Authorization':window.localStorage.getItem('token')
+            },
+            url:KISBPM.URL.getActOptions()
+        }).success(function (data, status, headers, config) {
+            $scope.status.loading = false;
+            if(data.data){
+                let res = data.data
+                $scope.applicationOptions = res.noticeApplication
+                $scope.typeOptions = res.noticeType
+            }
+        }).error(function (data, status, headers, config) {
+            $scope.error = {};
+            $scope.status.loading = false;
+        });
     }
     $scope.seluserindex = function(i){
         $scope.SelUsertype = i
@@ -390,6 +413,7 @@ var KisBpmChoiceSetsPopupCtrl = [ '$scope', '$http', '$translate', function($sco
     }
 
     $scope.getnoticlist()
+    $scope.seloptions()
     setTimeout(()=>{
         try{
             let str = $scope.property.value

@@ -34,9 +34,8 @@
 		            			<label class="col-sm-2 form-check-label text-right" for="notictype[i]" >{{'PROPERTY.CUSTOM.NOTICTYPE' | translate}}</label>
 		            			<div class="col-sm-2">
 		            				<select class="form-control" id="{{'notictype'+i}}" ng-model="fsets.noticeAction[i]['type']">
-		            					<option value="1" ng-selected="fsets.noticeAction[i]['type']=='1'">{{'PROPERTY.CUSTOM.TYPEONE' | translate}}</option>
-		            					<option value="2" ng-selected="fsets.noticeAction[i]['type']=='2'">{{'PROPERTY.CUSTOM.TYPETWO' | translate}}</option>
-		            					<option value="3" ng-selected="fsets.noticeAction[i]['type']=='3'">{{'PROPERTY.CUSTOM.TYPETHREE' | translate}}</option>
+		            					<option value="">{{'PROPERTY.CUSTOM.PLEASESEL' | translate}}</option>
+		            					<option value="{{vv.value}}" ng-selected="fsets.noticeAction[i]['type']==vv.value" ng-repeat="(ii,vv) in typeOptions track by $index">{{vv.label}}</option>
 		            				</select>
 		            			</div>
 	            			</div>
@@ -71,9 +70,8 @@
 	            				<label class="col-sm-2 form-check-label text-right" for="notices[i][ii]" >{{'PROPERTY.CUSTOM.NOTICESTYPE' | translate}}</label>
 		            			<div class="col-sm-2">
 		            				<select class="form-control" id="{{'notices'+i+ii}}" ng-model="fsets.noticeAction[i]['notices'][ii]['noticeApplication']">
-		            					<option value="1" ng-selected="fsets.noticeAction[i]['notices'][ii]['noticeApplication']=='1'">{{'PROPERTY.CUSTOM.TYPEONE' | translate}}</option>
-		            					<option value="2" ng-selected="fsets.noticeAction[i]['notices'][ii]['noticeApplication']=='2'">{{'PROPERTY.CUSTOM.TYPETWO' | translate}}</option>
-		            					<option value="3" ng-selected="fsets.noticeAction[i]['notices'][ii]['noticeApplication']=='3'">{{'PROPERTY.CUSTOM.TYPETHREE' | translate}}</option>
+		            					<option value="">{{'PROPERTY.CUSTOM.PLEASESEL' | translate}}</option>
+		            					<option value="{{vvv.value}}" ng-selected="fsets.noticeAction[i]['notices'][ii]['noticeApplication']==vvv.value" ng-repeat="(iii,vvv) in applicationOptions track by $index">{{vvv.label}}</option>
 		            				</select>
 		            			</div>
 	            				<label class="col-sm-2 form-check-label text-right" for="notices[i][ii]" >{{'PROPERTY.CUSTOM.NOTICETYPE' | translate}}</label>
