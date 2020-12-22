@@ -1,5 +1,5 @@
 
-var KisBpmChoiceSetsCtrl = [ '$scope', '$modal', '$timeout', '$translate', function($scope, $modal, $timeout, $translate) {
+var KisBpmChoiceSetsCtrl = [ '$scope', '$modal', '$timeout', '$cookies', '$translate', function($scope, $modal, $timeout,$cookies, $translate) {
 
     var opts = {
         template:  'editor-app/configuration/properties/choice-sets-write.html?version=' + Date.now(),
@@ -114,7 +114,7 @@ function deepClone(obj){
     return result
 }
 
-var KisBpmChoiceSetsPopupCtrl = [ '$scope', '$http', '$translate', function($scope, $http, $translate) {
+var KisBpmChoiceSetsPopupCtrl = [ '$scope', '$http','$cookies', '$translate', function($scope, $http,$cookies, $translate) {
 
     $scope.typelist = ['超时设置','额外信息','表单权限'];
     $scope.usertypelist = ['人员','部门','岗位','群组'];
@@ -201,13 +201,24 @@ var KisBpmChoiceSetsPopupCtrl = [ '$scope', '$http', '$translate', function($sco
     $scope.closeuserbox = function(){
         $scope.SelUserBox = false
     }
+    $scope.getData=(name)=>{
+        var arr,reg=new RegExp("(^| )"+name+"=([^;]*)(;|$)");
+        // let str = window.localStorage.getItem(name)
+        if(arr=document.cookie.match(reg)){
+            return decodeURI(arr[2]);
+        // if(str){
+            // return FieldCheckBack(str)
+        }else{
+            return null
+        }
+    }
     $scope.seloptions = function(){
         $http({
             method:'POST',
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
-                'Authorization':window.localStorage.getItem('token')
+                'Authorization':$scope.getData("token")
             },
             url:KISBPM.URL.getActOptions()
         }).success(function (data, status, headers, config) {
@@ -236,7 +247,7 @@ var KisBpmChoiceSetsPopupCtrl = [ '$scope', '$http', '$translate', function($sco
                 headers: {
                     'Accept': 'application/json',
                     'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
-                    'Authorization':window.localStorage.getItem('token')
+                    'Authorization':$scope.getData("token")
                 },
                 url: url
             })
@@ -272,7 +283,7 @@ var KisBpmChoiceSetsPopupCtrl = [ '$scope', '$http', '$translate', function($sco
                 headers: {
                     'Accept': 'application/json',
                     'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
-                    'Authorization':window.localStorage.getItem('token')
+                    'Authorization':$scope.getData("token")
                 },
                 url: url
             })
@@ -308,7 +319,7 @@ var KisBpmChoiceSetsPopupCtrl = [ '$scope', '$http', '$translate', function($sco
             //     headers: {
             //         'Accept': 'application/json',
             //         'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
-            //         'Authorization':window.localStorage.getItem('token')
+            //         'Authorization':$scope.getData("token")
             //     },
             //     url: url
             // })
@@ -338,7 +349,7 @@ var KisBpmChoiceSetsPopupCtrl = [ '$scope', '$http', '$translate', function($sco
                 headers: {
                     'Accept': 'application/json',
                     'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
-                    'Authorization':window.localStorage.getItem('token')
+                    'Authorization':$scope.getData("token")
                 },
                 url: url
             })
@@ -398,7 +409,7 @@ var KisBpmChoiceSetsPopupCtrl = [ '$scope', '$http', '$translate', function($sco
                 headers: {
                     'Accept': 'application/json',
                     'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
-                    'Authorization':window.localStorage.getItem('token')
+                    'Authorization':$scope.getData("token")
                 },
                 url: KISBPM.URL.getNoticeapplicationList()
             })

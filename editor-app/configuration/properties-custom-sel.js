@@ -26,7 +26,7 @@ function deepClone(obj){
     return result
 }
 
-var KisBpmCustomSelPopupCtrl = [ '$scope', '$http', '$translate', function($scope, $http, $translate) {
+var KisBpmCustomSelPopupCtrl = [ '$scope', '$http',"$cookies", '$translate', function($scope, $http, $cookies, $translate) {
     $scope.oplist = []
     $scope.opsellist = []
     $scope.opshow = false
@@ -45,6 +45,17 @@ var KisBpmCustomSelPopupCtrl = [ '$scope', '$http', '$translate', function($scop
             return res.introduction.indexOf(words)>=0
         })
     }
+    $scope.getData=(name)=>{
+        var arr,reg=new RegExp("(^| )"+name+"=([^;]*)(;|$)");
+        // let str = window.localStorage.getItem(name)
+        if(arr=document.cookie.match(reg)){
+            return decodeURI(arr[2]);
+        // if(str){
+            // return FieldCheckBack(str)
+        }else{
+            return null
+        }
+    }
     $scope.getList = function(){
         let url = KISBPM.URL.getFormList()
         let arr = []
@@ -58,7 +69,7 @@ var KisBpmCustomSelPopupCtrl = [ '$scope', '$http', '$translate', function($scop
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
-                'Authorization':window.localStorage.getItem('token')
+                'Authorization':$scope.getData("token")
             },
             url: url
         })

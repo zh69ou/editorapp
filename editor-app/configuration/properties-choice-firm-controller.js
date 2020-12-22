@@ -78,7 +78,7 @@ function checkGroupData(arr,$scope){
     }
 }
 
-var KisBpmChoiceFirmPopupCtrl = [ '$scope', '$http', '$translate', function($scope, $http, $translate) {
+var KisBpmChoiceFirmPopupCtrl = [ '$scope', '$http', '$cookies', '$translate', function($scope, $http, $cookies, $translate) {
 
     $scope.typelist = ['人员','部门','岗位','群组'];
     let urllist = [
@@ -98,6 +98,17 @@ var KisBpmChoiceFirmPopupCtrl = [ '$scope', '$http', '$translate', function($sco
     // angular.element('#jstree').jstree({
     //     "plugins" : [ "wholerow", "checkbox" ]
     // })
+    $scope.getData=(name)=>{
+        var arr,reg=new RegExp("(^| )"+name+"=([^;]*)(;|$)");
+        // let str = window.localStorage.getItem(name)
+        if(arr=document.cookie.match(reg)){
+            return decodeURI(arr[2]);
+        // if(str){
+            // return FieldCheckBack(str)
+        }else{
+            return null
+        }
+    }
     $scope.upindex = function(i){
         $scope.typeindex = i
         let url = urllist[i]?urllist[i]:urllist[0]
@@ -112,7 +123,7 @@ var KisBpmChoiceFirmPopupCtrl = [ '$scope', '$http', '$translate', function($sco
                 headers: {
                     'Accept': 'application/json',
                     'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
-                    'Authorization':window.localStorage.getItem('token')
+                    'Authorization':$scope.getData("token")
                 },
                 url: url
             })
@@ -142,7 +153,7 @@ var KisBpmChoiceFirmPopupCtrl = [ '$scope', '$http', '$translate', function($sco
                 headers: {
                     'Accept': 'application/json',
                     'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
-                    'Authorization':window.localStorage.getItem('token')
+                    'Authorization':$scope.getData("token")
                 },
                 url: url
             })
@@ -172,7 +183,7 @@ var KisBpmChoiceFirmPopupCtrl = [ '$scope', '$http', '$translate', function($sco
             //     headers: {
             //         'Accept': 'application/json',
             //         'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
-            //         'Authorization':window.localStorage.getItem('token')
+            //         'Authorization':$scope.getData("token")
             //     },
             //     url: url
             // })
@@ -202,7 +213,7 @@ var KisBpmChoiceFirmPopupCtrl = [ '$scope', '$http', '$translate', function($sco
                 headers: {
                     'Accept': 'application/json',
                     'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
-                    'Authorization':window.localStorage.getItem('token')
+                    'Authorization':$scope.getData("token")
                 },
                 url: url
             })
