@@ -126,9 +126,9 @@ var KisBpmChoiceSetsPopupCtrl = [ '$scope', '$http','$cookies', '$translate', fu
     ];
     $scope.status = {
         loading: false,
-        showbox:0
+        showbox:0,
+        jsonval:"",
     };
-    $scope.jsonval = $scope.property.value
     $scope.fsets = {
         backNode:[""],    // 驳回
         stopNode:0,     //终结
@@ -176,9 +176,9 @@ var KisBpmChoiceSetsPopupCtrl = [ '$scope', '$http','$cookies', '$translate', fu
             str = str.replace(/\"\[/g,"[")
             str = str.replace(/\]\"/g,"]")
             str = str.replace(/\\\"/g,"\"")
-            $scope.jsonval = str
+            $scope.status.jsonval = str
         }else if($scope.status.showbox==1){
-            $scope.fsets = setObjVal($scope.fsets,JSON.parse($scope.jsonval))
+            $scope.fsets = setObjVal($scope.fsets,JSON.parse($scope.status.jsonval))
         }
         $scope.status.showbox = n
     }
@@ -426,6 +426,7 @@ var KisBpmChoiceSetsPopupCtrl = [ '$scope', '$http','$cookies', '$translate', fu
     $scope.getnoticlist()
     $scope.seloptions()
     setTimeout(()=>{
+        $scope.status.jsonval = $scope.property.value
         try{
             let str = $scope.property.value
             let nobj = setObjVal($scope.fsets,JSON.parse(str))
@@ -442,7 +443,7 @@ var KisBpmChoiceSetsPopupCtrl = [ '$scope', '$http','$cookies', '$translate', fu
             str = str.replace(/\\\"/g,"\"")
             $scope.property.value = str
         }else if($scope.status.showbox==1){
-            $scope.property.value = $scope.jsonval
+            $scope.property.value = $scope.status.jsonval
         }
         $scope.updatePropertyInModel($scope.property);
         $scope.close();
