@@ -78,23 +78,42 @@ function SetCheckGroupData(arr,$scope,narr=[]){
     }
 }
 
-function setObjVal(obj,nobj){
-    for (let k in obj) {
-        if(obj[k]&&typeof(obj[k])=='object'){
-            if(Array.isArray(obj[k])){
-                if(nobj[k]){
-                    obj[k] = nobj[k]
-                }
-            }else{
-                obj[k] = setObjVal(obj[k],nobj[k])
-            }
-        }else{
-            if(nobj[k]){
-                obj[k] =  nobj[k]
+// function setObjVal(obj,nobj){
+//     for (let k in obj) {
+//         if(obj[k]&&typeof(obj[k])=='object'){
+//             if(Array.isArray(obj[k])){
+//                 if(nobj[k]){
+//                     obj[k] = nobj[k]
+//                 }
+//             }else{
+//                 obj[k] = setObjVal(obj[k],nobj[k])
+//             }
+//         }else{
+//             if(nobj[k]){
+//                 obj[k] =  nobj[k]
+//             }
+//         }
+//     }
+//     return obj
+// }
+
+/**
+ * 对象检测，提取相同值
+ * @Author zhou69.1@qq.com 2020-12-16
+ */
+function setObjVal (defsets,valsets){
+    if(typeof(defsets)=='object'){
+        let newsets = defsets
+        for(let key in valsets){
+            if(valsets&&Object.prototype.toString.call(newsets[key])==='[object Object]'&&typeof(valsets[key])!='undefined'&&typeof(valsets[key])!='function'){
+                newsets[key] = setObjVal(newsets[key],valsets[key])
+            }else if(valsets&&typeof(valsets[key])!='undefined'){
+                newsets[key] = valsets[key]
             }
         }
+        defsets = newsets
     }
-    return obj
+    return defsets
 }
 
 function deepClone(obj){
@@ -379,6 +398,7 @@ var KisBpmChoiceSetsPopupCtrl = [ '$scope', '$http','$cookies', '$translate', fu
             });
         }
     }
+
     $scope.upindex = function(i){
         $scope.typeindex = i
     }
