@@ -30,15 +30,37 @@ var KisBpmCustomSelPopupCtrl = [ '$scope', '$http',"$cookies", '$translate', fun
     $scope.oplist = []
     $scope.opsellist = []
     $scope.opshow = false
+    $scope.status = {
+        loading: false,
+        showbox:0,
+        jsonval:"",
+        setsobj:["","customform","info",""]
+    }
     $scope.searchwd = ''
-    $scope.setsobj = ["","customform","info",""]
+    // $scope.setsobj = ["","customform","info",""]
     let con = $scope.property.value.split('/')
     if(Array.isArray(con)&&con.length==4){
-        $scope.setsobj = con
+        console.log('con',con)
+        $scope.status.setsobj = con
     }
     $scope.showbox = function(obj){
         $scope.opshow = true
-        console.log(obj)
+    }
+    $scope.changebox = function(n){
+        let status = deepClone($scope.status)
+        console.log(1,$scope.status)
+        if(n==0){
+            // let str = JSON.stringify($scope.fsets)
+            // str = str.replace(/\"\[/g,"[")
+            // str = str.replace(/\]\"/g,"]")
+            // str = str.replace(/\\\"/g,"\"")
+            status.setsobj = status.jsonval.split('/')
+        }else if(n==1){
+            status.jsonval = status.setsobj.join('/')
+        }
+        status.showbox = n
+        console.log('status',status)
+        $scope.status = status
     }
     $scope.searwords = function(words){
         $scope.opsellist = $scope.oplist.filter(res=>{
@@ -86,9 +108,13 @@ var KisBpmCustomSelPopupCtrl = [ '$scope', '$http',"$cookies", '$translate', fun
     $scope.getList()
 
     $scope.save = function() {
-        let str = $scope.setsobj.join('/')
-        // console.log(str)
-        $scope.property.value = str
+        if($scope.status.showbox==1){
+            $scope.property.value = $scope.status.jsonval
+        }else{
+            let str = $scope.status.setsobj.join('/')
+            // console.log(str)
+            $scope.property.value = str
+        }
         $scope.updatePropertyInModel($scope.property);
         $scope.close();
     };
