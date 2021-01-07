@@ -140,7 +140,7 @@ var KisBpmChoiceFirmPopupCtrl = [ '$scope', '$http', '$cookies', '$translate', f
                     }
                 })
                 angular.element('#jstree').on('changed.jstree',(e,data)=>{
-                    $scope.cacheval = 'dpt_'+data.selected[0]
+                    $scope.cacheval = 'dept_'+data.selected[0]
                 })
             })
             .error(function (data, status, headers, config) {
