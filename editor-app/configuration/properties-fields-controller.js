@@ -26,7 +26,9 @@ var KisBpmFieldsCtrl = [ '$scope', '$modal', '$timeout', '$translate', function(
     // Config for the modal window
     var opts = {
         template:  'editor-app/configuration/properties/fields-popup.html',
-        scope: $scope
+        scope: $scope,
+        backdrop:'static',
+        keyboard:false
     };
 
     // Open the dialog

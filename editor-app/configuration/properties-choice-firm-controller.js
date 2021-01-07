@@ -3,7 +3,9 @@ var KisBpmChoiceFirmCtrl = [ '$scope', '$modal', '$timeout', '$translate', funct
 
     var opts = {
         template:  'editor-app/configuration/properties/choice-firm-write.html?version=' + Date.now(),
-        scope: $scope
+        scope: $scope,
+        backdrop:'static',
+        keyboard:false
     };
 
     $modal(opts);

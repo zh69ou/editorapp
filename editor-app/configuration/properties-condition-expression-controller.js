@@ -26,7 +26,9 @@ var KisBpmConditionExpressionCtrl = [ '$scope', '$modal', function($scope, $moda
     // Config for the modal window
     var opts = {
         template:  'editor-app/configuration/properties/condition-expression-popup.html?version=' + Date.now(),
-        scope: $scope
+        scope: $scope,
+        backdrop:'static',
+        keyboard:false
     };
 
     // Open the dialog

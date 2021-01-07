@@ -26,7 +26,9 @@ var KisBpmSequenceFlowOrderCtrl = [ '$scope', '$modal', '$timeout', '$translate'
     // Config for the modal window
     var opts = {
         template:  'editor-app/configuration/properties/sequenceflow-order-popup.html?version=' + Date.now(),
-        scope: $scope
+        scope: $scope,
+        backdrop:'static',
+        keyboard:false
     };
 
     $modal(opts);

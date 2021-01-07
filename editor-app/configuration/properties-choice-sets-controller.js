@@ -3,7 +3,9 @@ var KisBpmChoiceSetsCtrl = [ '$scope', '$modal', '$timeout', '$cookies', '$trans
 
     var opts = {
         template:  'editor-app/configuration/properties/choice-sets-write.html?version=' + Date.now(),
-        scope: $scope
+        scope: $scope,
+        backdrop:'static',
+        keyboard:false
     };
 
     $modal(opts);

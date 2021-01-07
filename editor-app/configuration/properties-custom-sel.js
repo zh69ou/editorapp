@@ -3,7 +3,9 @@ var KisBpmCustomSelCtrl = [ '$scope', '$modal', '$timeout', '$translate', functi
 
     var opts = {
         template:  'editor-app/configuration/properties/custom-sel-write.html?version=' + Date.now(),
-        scope: $scope
+        scope: $scope,
+        backdrop:'static',
+        keyboard:false
     };
 
     $modal(opts);
