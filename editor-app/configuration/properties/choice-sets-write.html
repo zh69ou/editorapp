@@ -220,7 +220,7 @@
 					</div>
 					<div class="seluserbox" ng-if="SelUserBox">
 						<ul class="nav nav-tabs">
-						  <li ng-click="seluserindex(i)" ng-class="'nav-item'+(i==SelUsertype?' active':'')" ng-repeat="(i,v) in usertypelist">
+						  <li ng-click="seluserindex(i)" ng-class="'nav-item'+(i==status.SelUsertype?' active':'')" ng-repeat="(i,v) in usertypelist">
 						    <a class="nav-link">{{v}}</a>
 						  </li>
 						</ul>
