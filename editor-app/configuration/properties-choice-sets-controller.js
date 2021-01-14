@@ -25,7 +25,7 @@ function SetCheckData(arr,$scope){
                 id:res.departmentId,
                 parent:res.parentId?res.parentId:'#',
                 text:res.departmentName,
-                state: {selected: $scope.fsets.message.sendUsers[$scope.SelUserId]['WebuserId']&&$scope.fsets.message.sendUsers[$scope.SelUserId]['WebuserId'].indexOf(res.departmentId)!= -1?true:false}
+                state: {selected: $scope.fsets.message.sendUsers[$scope.status.SelUserId]['WebuserId']&&$scope.fsets.message.sendUsers[$scope.status.SelUserId]['WebuserId'].indexOf(res.departmentId)!= -1?true:false}
             }
             return obj
         })
@@ -48,7 +48,7 @@ function SetCheckUserData(arr,$scope){
                 id:res.userId,
                 parent:res.parentId?res.parentId:'#',
                 text:res.userFullName,
-                state: {selected: $scope.fsets.message.sendUsers[$scope.SelUserId]['WebuserId']&&$scope.fsets.message.sendUsers[$scope.SelUserId]['WebuserId'].indexOf(res.userId)!= -1?true:false}
+                state: {selected: $scope.fsets.message.sendUsers[$scope.status.SelUserId]['WebuserId']&&$scope.fsets.message.sendUsers[$scope.status.SelUserId]['WebuserId'].indexOf(res.userId)!= -1?true:false}
             }
             return obj
         })
@@ -71,7 +71,7 @@ function SetCheckGroupData(arr,$scope,narr=[]){
                 id:res.id,
                 parent:res.parentId?res.parentId:'#',
                 text:res.name,
-                state: {selected: $scope.fsets.message.sendUsers[$scope.SelUserId]['WebuserId']&&$scope.fsets.message.sendUsers[$scope.SelUserId]['WebuserId'].indexOf(res.id)!= -1?true:false}
+                state: {selected: $scope.fsets.message.sendUsers[$scope.status.SelUserId]['WebuserId']&&$scope.fsets.message.sendUsers[$scope.status.SelUserId]['WebuserId'].indexOf(res.id)!= -1?true:false}
             }
             return obj
         })
@@ -147,6 +147,8 @@ var KisBpmChoiceSetsPopupCtrl = [ '$scope', '$http','$cookies', '$translate', fu
     ];
     $scope.status = {
         loading: false,
+        SelUserBox: false,
+        SelUserId:0,
         showbox:0,
         jsonval:"",
         SelUsertype:0,
@@ -208,8 +210,8 @@ var KisBpmChoiceSetsPopupCtrl = [ '$scope', '$http','$cookies', '$translate', fu
     }
     $scope.fsetscopy = deepClone($scope.fsets)
     $scope.typeindex = 0
-    $scope.SelUserBox = false
-    $scope.SelUserId = 0
+    // $scope.SelUserBox = false
+    // $scope.SelUserId = 0
     $scope.noticeapplication = []
     $scope.applicationOptions = []
     $scope.typeOptions = []
@@ -218,11 +220,11 @@ var KisBpmChoiceSetsPopupCtrl = [ '$scope', '$http','$cookies', '$translate', fu
     // })
     $scope.selUser = function(i){
         $scope.seluserindex($scope.status.SelUsertype)
-        $scope.SelUserBox = true
-        $scope.SelUserId = i
+        $scope.status.SelUserBox = true
+        $scope.status.SelUserId = i
     }
     $scope.closeuserbox = function(){
-        $scope.SelUserBox = false
+        $scope.status.SelUserBox = false
     }
     $scope.getData=(name)=>{
         var arr,reg=new RegExp("(^| )"+name+"=([^;]*)(;|$)");
@@ -286,10 +288,10 @@ var KisBpmChoiceSetsPopupCtrl = [ '$scope', '$http','$cookies', '$translate', fu
                 })
                 angular.element('#jstree').on('changed.jstree',(e,data)=>{
                     if(data.node&&data.node['id']){
-                        $scope.fsets.message.sendUsers[$scope.SelUserId]['WebuserId'] = data.node['id']
-                        $scope.fsets.message.sendUsers[$scope.SelUserId]['WebuserName'] = data.node['text']
-                        $scope.fsets.message.sendUsers[$scope.SelUserId]['WebuserType'] = $scope.status.SelUsertype
-                        $scope.fsets.message.sendUsers[$scope.SelUserId]['userId'] = 'dept_'+data.node['id']
+                        $scope.fsets.message.sendUsers[$scope.status.SelUserId]['WebuserId'] = data.node['id']
+                        $scope.fsets.message.sendUsers[$scope.status.SelUserId]['WebuserName'] = data.node['text']
+                        $scope.fsets.message.sendUsers[$scope.status.SelUserId]['WebuserType'] = $scope.status.SelUsertype
+                        $scope.fsets.message.sendUsers[$scope.status.SelUserId]['userId'] = 'dept_'+data.node['id']
                         $scope.closeuserbox()
                     }
                 })
@@ -322,9 +324,9 @@ var KisBpmChoiceSetsPopupCtrl = [ '$scope', '$http','$cookies', '$translate', fu
                 })
                 angular.element('#jstree').on('changed.jstree',(e,data)=>{
                     if(data.node&&data.node['id']){
-                        $scope.fsets.message.sendUsers[$scope.SelUserId]['WebuserId'] = data.node['id']
-                        $scope.fsets.message.sendUsers[$scope.SelUserId]['WebuserName'] = data.node['text']
-                        $scope.fsets.message.sendUsers[$scope.SelUserId]['WebuserType'] = $scope.status.SelUsertype
+                        $scope.fsets.message.sendUsers[$scope.status.SelUserId]['WebuserId'] = data.node['id']
+                        $scope.fsets.message.sendUsers[$scope.status.SelUserId]['WebuserName'] = data.node['text']
+                        $scope.fsets.message.sendUsers[$scope.status.SelUserId]['WebuserType'] = $scope.status.SelUsertype
                         $scope.cacheval = 'user_'+data.node['id']
                         $scope.closeuserbox()
                     }
@@ -404,6 +406,7 @@ var KisBpmChoiceSetsPopupCtrl = [ '$scope', '$http','$cookies', '$translate', fu
     }
 
     $scope.upindex = function(i){
+        $scope.status.SelUserBox = false
         $scope.typeindex = i
     }
     $scope.addbox = function(obj,aobj){
