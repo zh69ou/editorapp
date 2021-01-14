@@ -156,6 +156,8 @@ var KisBpmChoiceSetsPopupCtrl = [ '$scope', '$http','$cookies', '$translate', fu
         stopNode:0,     //终结
         isDealer:0,    //是否时经销商
         isParallelNode:0,    //是否并行
+        routeWay:"",    //流转方式
+        nodeAssignee:"",    //节点代理人
         tableAuth:{
             overtime:0,
             parentAuth:[""],    //可控制权限

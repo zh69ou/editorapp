@@ -216,6 +216,21 @@
 				            		</div>
 			            		</div>
 		            		</div>
+		            		<div class="form-check-inline form-group">
+		            			<label class="col-sm-2 form-check-label text-right" for="routeWay" >{{'PROPERTY.CUSTOM.ROUTEWAY' | translate}}</label>
+		            			<div class="col-sm-2">
+		            				<select class="form-control" id="routeWay" ng-model="fsets.routeWay">
+		            					<option value="" ng-selected="fsets.routeWay==''">{{'PROPERTY.CUSTOM.ROUTEWAYHAND' | translate}}</option>
+		            					<option value="auto" ng-selected="fsets.routeWay=='auto'">{{'PROPERTY.CUSTOM.ROUTEWAYAUTO' | translate}}</option>
+		            				</select>
+		            			</div>
+	            			</div>
+	            			<div class="form-check form-check-inline form-group" >
+	            				<label class="col-sm-2 control-label text-right" for="nodeassignee">{{'PROPERTY.CUSTOM.NODEASSIGNEE' | translate}}</label>
+	            				<div class="col-sm-4">
+	            					<input type="text" class="form-control" id="nodeassignee" ng-model="fsets.nodeAssignee" placeholder="{{'PROPERTY.CUSTOM.NODEASSIGNEE' | translate}}">
+			            		</div>
+		            		</div>
 		            	</div>
 					</div>
 					<div class="seluserbox" ng-if="SelUserBox">
