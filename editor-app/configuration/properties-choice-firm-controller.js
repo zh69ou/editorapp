@@ -232,7 +232,7 @@ var KisBpmChoiceFirmPopupCtrl = [ '$scope', '$http', '$cookies', '$translate', f
                     }
                 })
                 angular.element('#jstree').on('changed.jstree',(e,data)=>{
-                    $scope.status.cacheval = 'grp_'+data.selected[0]
+                    $scope.status.cacheval = 'group_'+data.selected[0]
                 })
             })
             .error(function (data, status, headers, config) {

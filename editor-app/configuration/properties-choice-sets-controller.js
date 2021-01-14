@@ -389,7 +389,7 @@ var KisBpmChoiceSetsPopupCtrl = [ '$scope', '$http','$cookies', '$translate', fu
                         $scope.fsets.message.sendUsers[$scope.SelUserId]['WebuserId'] = data.node['id']
                         $scope.fsets.message.sendUsers[$scope.SelUserId]['WebuserName'] = data.node['text']
                         $scope.fsets.message.sendUsers[$scope.SelUserId]['WebuserType'] = $scope.status.SelUsertype
-                        $scope.cacheval = 'grp_'+data.node['id']
+                        $scope.cacheval = 'group_'+data.node['id']
                         $scope.closeuserbox()
                     }
                 })
