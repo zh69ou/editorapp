@@ -6,7 +6,7 @@
                     title="{{item.title | translate}}"
                     ng-repeat="item in items"
                     ng-switch on="item.type"
-                    class="btn btn-inverse" ng-class="{'separator': item.type == 'separator'}"
+                    class="btn btn-inverse" ng-class="{'separator': item.type == 'separator','btn-primary': item.type != 'separator'}"
                     ng-disabled="item.type == 'separator' || item.enabled == false"
                     ng-click="toolbarButtonClicked($index)">
         		<i ng-switch-when="button" ng-class="item.cssClass" class="toolbar-button" data-toggle="tooltip" title="{{item.title | translate}}"></i>
