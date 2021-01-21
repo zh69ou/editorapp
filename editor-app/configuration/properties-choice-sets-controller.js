@@ -327,7 +327,7 @@ var KisBpmChoiceSetsPopupCtrl = [ '$scope', '$http','$cookies', '$translate', fu
                         $scope.fsets.message.sendUsers[$scope.status.SelUserId]['WebuserId'] = data.node['id']
                         $scope.fsets.message.sendUsers[$scope.status.SelUserId]['WebuserName'] = data.node['text']
                         $scope.fsets.message.sendUsers[$scope.status.SelUserId]['WebuserType'] = $scope.status.SelUsertype
-                        $scope.cacheval = 'user_'+data.node['id']
+                        $scope.fsets.message.sendUsers[$scope.status.SelUserId]['userId'] = 'user_'+data.node['id']
                         $scope.closeuserbox()
                     }
                 })
@@ -393,7 +393,7 @@ var KisBpmChoiceSetsPopupCtrl = [ '$scope', '$http','$cookies', '$translate', fu
                         $scope.fsets.message.sendUsers[$scope.SelUserId]['WebuserId'] = data.node['id']
                         $scope.fsets.message.sendUsers[$scope.SelUserId]['WebuserName'] = data.node['text']
                         $scope.fsets.message.sendUsers[$scope.SelUserId]['WebuserType'] = $scope.status.SelUsertype
-                        $scope.cacheval = 'group_'+data.node['id']
+                        $scope.fsets.message.sendUsers[$scope.status.SelUserId]['userId'] = 'group_'+data.node['id']
                         $scope.closeuserbox()
                     }
                 })
