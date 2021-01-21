@@ -150,8 +150,14 @@ var KisBpmChoiceSetsPopupCtrl = [ '$scope', '$http','$cookies', '$translate', fu
         SelUserBox: false,
         SelUserId:0,
         showbox:0,
+        typeindex:0,
         jsonval:"",
         SelUsertype:0,
+        page:1,
+        size:10,
+        allpage:1,
+        listpage:[],
+        keywords:'',
     };
     $scope.fsets = {
         backNode:[""],    // 驳回
@@ -196,6 +202,30 @@ var KisBpmChoiceSetsPopupCtrl = [ '$scope', '$http','$cookies', '$translate', fu
             }
         ]
     }
+    $scope.pagelist=(arr)=>{
+        let list = arr.filter((res,i)=>{
+            return ($scope.status.keywords==''||$scope.status.keywords&&(res.text&&res.text.indexOf($scope.status.keywords)>-1))
+        })
+        $scope.status.allpage = Math.ceil(list.length/$scope.status.size)
+        let b = ($scope.status.page-Math.ceil($scope.status.size/2))<1?1:$scope.status.page-Math.ceil($scope.status.size/2)
+        let e = ($scope.status.page+Math.ceil($scope.status.size/2))>$scope.status.allpage?$scope.status.allpage:$scope.status.page+Math.ceil($scope.status.size/2)
+        if((e-b)<$scope.status.size&&(b+$scope.status.size)<$scope.status.allpage){
+            e = b+$scope.status.size
+        }else if((e-b)<$scope.status.size&&(e-$scope.status.size)>1){
+            b = e-$scope.status.size
+        }
+        $scope.status.listpage = new Array($scope.status.allpage).map((r,i)=>{
+            return i
+        }).filter((res,k)=>{
+            return k>=b&&k<e
+        })
+        list = list.filter((res,i)=>{
+            let begin = ($scope.status.page-1)*$scope.status.size
+            let end = begin+$scope.status.size
+            return i>=begin&&i<end
+        })
+        return list
+    }
     $scope.changebox = function(n){
         if($scope.status.showbox==0){
             let str = JSON.stringify($scope.fsets)
@@ -209,7 +239,6 @@ var KisBpmChoiceSetsPopupCtrl = [ '$scope', '$http','$cookies', '$translate', fu
         $scope.status.showbox = n
     }
     $scope.fsetscopy = deepClone($scope.fsets)
-    $scope.typeindex = 0
     // $scope.SelUserBox = false
     // $scope.SelUserId = 0
     $scope.noticeapplication = []
@@ -314,6 +343,7 @@ var KisBpmChoiceSetsPopupCtrl = [ '$scope', '$http','$cookies', '$translate', fu
             })
             .success(function (data, status, headers, config) {
                 let arr = SetCheckUserData(data,$scope)
+                arr = $scope.pagelist(arr)
                 $scope.status.loading = false;
                 angular.element('#jstree').jstree({
                     'plugins':["wholerow","checkbox"],
@@ -405,9 +435,18 @@ var KisBpmChoiceSetsPopupCtrl = [ '$scope', '$http','$cookies', '$translate', fu
         }
     }
 
+    $scope.jumppage = function(n){
+        $scope.status.page = n
+        $scope.seluserindex($scope.status.SelUsertype)
+    }
+    $scope.serwords = function(){
+        $scope.status.page = 1
+        $scope.seluserindex($scope.status.SelUsertype)
+    }
+
     $scope.upindex = function(i){
         $scope.status.SelUserBox = false
-        $scope.typeindex = i
+        $scope.status.typeindex = i
     }
     $scope.addbox = function(obj,aobj){
         if(obj){
@@ -459,7 +498,8 @@ var KisBpmChoiceSetsPopupCtrl = [ '$scope', '$http','$cookies', '$translate', fu
             let nobj = setObjVal($scope.fsets,JSON.parse(str))
             $scope.fsets = nobj
         }catch(err){}
-        $scope.upindex($scope.typeindex)
+        console.log($scope.status.typeindex)
+        $scope.upindex($scope.status.typeindex)
     },100)
 
     $scope.save = function() {
