@@ -6,12 +6,28 @@
 			    <h3>{{'PROPERTY.PROPERTY.EDIT.TITLE' | translate:property}}</h3>
 			</div>
 			<div class="modal-body">
-				<ul class="nav nav-tabs">
-				  <li ng-click="upindex(i)" ng-class="'nav-item'+(i==status.typeindex?' active':'')" ng-repeat="(i,v) in typelist">
-				    <a class="nav-link">{{v}}</a>
-				  </li>
-				</ul>
-				<div id="jstree"></div>
+				<div class="showbox" ng-if="status.showbox==0">
+					<button type="button" ng-click="changebox(1)" class="changebut btn btn-default">{{'PROPERTY.CUSTOM.JSONCODE' | translate}}</button>
+					<ul class="nav nav-tabs">
+					  <li ng-click="upindex(i)" ng-class="'nav-item'+(i==status.typeindex?' active':'')" ng-repeat="(i,v) in typelist">
+					    <a class="nav-link">{{v}}</a>
+					  </li>
+					</ul>
+					<div class="form-inline" ng-if="status.typeindex==0">
+						<div class="form-group">
+						    <input type="text" class="form-control" ng-model="status.keywords" placeholder="搜索名称">
+						</div>
+						<button type="button" class="btn btn-default" ng-click="serwords()">搜索</button>
+					</div>
+					<div id="jstree"></div>
+					<div class="form-inline"  ng-if="status.typeindex==0">
+						<button type="button" class="btn" ng-class="{'btn-link': v != status.page,'btn-primary':v == status.page}" ng-repeat="(i,v) in status.listpage" ng-click="jumppage(v)">{{v}}</button>
+					</div>
+				</div>
+				<div class="jsonbox" ng-if="status.showbox==1">
+					<button type="button" ng-click="changebox(0)" class="changebut btn btn-default">{{'PROPERTY.CUSTOM.SHOWTREE' | translate}}</button>
+					<textarea class="form-control" ng-model="status.cacheval" style="width:90%; height:100%; max-width: 100%; max-height: 100%; min-height: 100px"/>
+				</div>
 			</div>
 			<div class="modal-footer">
 			    <button ng-click="cancel()" class="btn btn-primary" translate>ACTION.CANCEL</button>

@@ -25,7 +25,7 @@ function checkData(arr,$scope){
                 id:res.departmentId,
                 parent:res.parentId?res.parentId:'#',
                 text:res.departmentName,
-                state: {selected: $scope.property.value&&$scope.property.value.assignment&&$scope.property.value.assignment.assignee&&$scope.property.value.assignment.assignee.indexOf(res.departmentId)!= -1?true:false}
+                state: {selected: $scope.property.value&&res.departmentId==$scope.status.code?true:false}
             }
             return obj
         })
@@ -48,7 +48,7 @@ function checkUserData(arr,$scope){
                 id:res.userId,
                 parent:res.parentId?res.parentId:'#',
                 text:res.userFullName,
-                state: {selected: $scope.property.value.assignment&&$scope.property.value.assignment.assignee&&$scope.property.value.assignment.assignee.indexOf(res.userId)!= -1?true:false}
+                state: {selected: $scope.property.value&&res.userId==$scope.status.code?true:false}
             }
             return obj
         })
@@ -71,7 +71,7 @@ function checkGroupData(arr,$scope){
                 id:res.id,
                 parent:res.parentId?res.parentId:'#',
                 text:res.name,
-                state: {selected: $scope.property.value.assignment&&$scope.property.value.assignment.assignee&&$scope.property.value.assignment.assignee.indexOf(res.id)!= -1?true:false}
+                state: {selected: $scope.property.value&&res.id==$scope.status.code?true:false}
             }
             return obj
         })
@@ -92,11 +92,24 @@ var KisBpmChoiceFirmPopupCtrl = [ '$scope', '$http', '$cookies', '$translate', f
     $scope.status = {
         loading: false,
         cacheval:'',
-        typeindex:0
+        typeindex:0,
+        code:'',
+        showbox:0,
+        page:1,
+        size:10,
+        allpage:1,
+        listpage:[],
+        keywords:'',
     };
-    if($scope.property.value.assignment&&$scope.property.value.assignment.assigneeindex){
-        $scope.status.typeindex = $scope.property.value.assignment.assigneeindex
-        $scope.status.cacheval = $scope.property.value.assignment.assignee
+    if(typeof($scope.property.value)=='string'){
+        let arr = $scope.property.value.split('_')
+        if(arr.length==2){
+            if(arr[0]=='user')$scope.status.typeindex = 0
+            if(arr[0]=='dept')$scope.status.typeindex = 1
+            if(arr[0]=='group')$scope.status.typeindex = 3
+            $scope.status.code = arr[1]
+        }
+        $scope.status.cacheval = $scope.property.value
     }
     // angular.element('#jstree').jstree({
     //     "plugins" : [ "wholerow", "checkbox" ]
@@ -111,6 +124,38 @@ var KisBpmChoiceFirmPopupCtrl = [ '$scope', '$http', '$cookies', '$translate', f
         }else{
             return null
         }
+    }
+    $scope.pagelist=(arr)=>{
+        let list = arr.filter((res,i)=>{
+            return ($scope.status.keywords==''||$scope.status.keywords&&(res.text&&res.text.indexOf($scope.status.keywords)>-1))
+        })
+        $scope.status.allpage = Math.ceil(list.length/$scope.status.size)
+        let b = ($scope.status.page-Math.ceil($scope.status.size/2))<1?1:$scope.status.page-Math.ceil($scope.status.size/2)
+        let e = ($scope.status.page+Math.ceil($scope.status.size/2))>$scope.status.allpage?$scope.status.allpage:$scope.status.page+Math.ceil($scope.status.size/2)
+        if((e-b)<$scope.status.size&&(b+$scope.status.size)<$scope.status.allpage){
+            e = b+$scope.status.size
+        }else if((e-b)<$scope.status.size&&(e-$scope.status.size)>1){
+            b = e-$scope.status.size
+        }
+        $scope.status.listpage = new Array($scope.status.allpage).map((r,i)=>{
+            return i
+        }).filter((res,k)=>{
+            return k>=b&&k<e
+        })
+        list = list.filter((res,i)=>{
+            let begin = ($scope.status.page-1)*$scope.status.size
+            let end = begin+$scope.status.size
+            return i>=begin&&i<end
+        })
+        return list
+    }
+    $scope.jumppage = function(n){
+        $scope.status.page = n
+        $scope.upindex($scope.status.typeindex)
+    }
+    $scope.serwords = function(){
+        $scope.status.page = 1
+        $scope.upindex($scope.status.typeindex)
     }
     $scope.upindex = function(i){
         $scope.status.typeindex = i
@@ -133,6 +178,7 @@ var KisBpmChoiceFirmPopupCtrl = [ '$scope', '$http', '$cookies', '$translate', f
             })
             .success(function (data, status, headers, config) {
                 let arr = checkData(data,$scope)
+                // arr = $scope.pagelist(arr)
                 $scope.status.loading = false;
                 angular.element('#jstree').jstree({
                     'plugins':["wholerow","checkbox"],
@@ -163,6 +209,7 @@ var KisBpmChoiceFirmPopupCtrl = [ '$scope', '$http', '$cookies', '$translate', f
             })
             .success(function (data, status, headers, config) {
                 let arr = checkUserData(data,$scope)
+                arr = $scope.pagelist(arr)
                 $scope.status.loading = false;
                 angular.element('#jstree').jstree({
                     'plugins':["wholerow","checkbox"],
@@ -223,6 +270,7 @@ var KisBpmChoiceFirmPopupCtrl = [ '$scope', '$http', '$cookies', '$translate', f
             })
             .success(function (data, status, headers, config) {
                 let arr = checkGroupData(data,$scope)
+                // arr = $scope.pagelist(arr)
                 $scope.status.loading = false;
                 angular.element('#jstree').jstree({
                     'plugins':["wholerow","checkbox"],
@@ -241,17 +289,42 @@ var KisBpmChoiceFirmPopupCtrl = [ '$scope', '$http', '$cookies', '$translate', f
             });
         }
     }
+    $scope.changebox = function(n){
+        $scope.status.page = 1
+        if(typeof($scope.property.value)=='string'){
+            let arr = $scope.property.value.split('_')
+            if(arr.length==2){
+                if(arr[0]=='user')$scope.status.typeindex = 0
+                if(arr[0]=='dept')$scope.status.typeindex = 1
+                if(arr[0]=='group')$scope.status.typeindex = 3
+                $scope.status.code = arr[1]
+            }
+            $scope.status.cacheval = $scope.property.value
+        }else if($scope.status.cacheval){
+            let arr = $scope.status.cacheval.split('_')
+            if(arr.length==2){
+                if(arr[0]=='user')$scope.status.typeindex = 0
+                if(arr[0]=='dept')$scope.status.typeindex = 1
+                if(arr[0]=='group')$scope.status.typeindex = 3
+                $scope.status.code = arr[1]
+            }
+        }
+        if(n==0){
+            $scope.upindex($scope.status.typeindex)
+        }
+        $scope.status.showbox = n
+    }
 
     setTimeout(()=>{
         $scope.upindex($scope.status.typeindex)
     },100)
 
     $scope.save = function() {
-        let obj = {assignment:{
-            assignee:$scope.status.cacheval,
-            assigneeindex:$scope.status.typeindex,
-        }}
-        $scope.property.value = obj
+        // let obj = {assignment:{
+        //     assignee:$scope.status.cacheval,
+        //     assigneeindex:$scope.status.typeindex,
+        // }}
+        $scope.property.value = $scope.status.cacheval
         $scope.updatePropertyInModel($scope.property);
         $scope.close();
     };
