@@ -25,7 +25,7 @@ function checkData(arr,$scope){
                 id:res.departmentId,
                 parent:res.parentId?res.parentId:'#',
                 text:res.departmentName,
-                state: {selected: $scope.property.value&&res.departmentId==$scope.status.code?true:false}
+                state: {selected: $scope.status.cacheval&&res.departmentId==$scope.status.code?true:false}
             }
             return obj
         })
@@ -48,7 +48,7 @@ function checkUserData(arr,$scope){
                 id:res.userId,
                 parent:res.parentId?res.parentId:'#',
                 text:res.userFullName,
-                state: {selected: $scope.property.value&&res.userId==$scope.status.code?true:false}
+                state: {selected: $scope.status.cacheval&&res.userId==$scope.status.code?true:false}
             }
             return obj
         })
@@ -71,7 +71,7 @@ function checkGroupData(arr,$scope){
                 id:res.id,
                 parent:res.parentId?res.parentId:'#',
                 text:res.name,
-                state: {selected: $scope.property.value&&res.id==$scope.status.code?true:false}
+                state: {selected: $scope.status.cacheval&&res.id==$scope.status.code?true:false}
             }
             return obj
         })
@@ -291,15 +291,16 @@ var KisBpmChoiceFirmPopupCtrl = [ '$scope', '$http', '$cookies', '$translate', f
     }
     $scope.changebox = function(n){
         $scope.status.page = 1
-        if(typeof($scope.property.value)=='string'){
-            let arr = $scope.property.value.split('_')
+        let val = $scope.property.value
+        if(val.assignment&&val.assignment.assignee&&typeof(val.assignment.assignee)=='string'){
+            let arr = val.assignment.assignee.split('_')
             if(arr.length==2){
                 if(arr[0]=='user')$scope.status.typeindex = 0
                 if(arr[0]=='dept')$scope.status.typeindex = 1
                 if(arr[0]=='group')$scope.status.typeindex = 3
                 $scope.status.code = arr[1]
             }
-            $scope.status.cacheval = $scope.property.value
+            $scope.status.cacheval = val.assignment.assignee
         }else if($scope.status.cacheval){
             let arr = $scope.status.cacheval.split('_')
             if(arr.length==2){
@@ -320,11 +321,11 @@ var KisBpmChoiceFirmPopupCtrl = [ '$scope', '$http', '$cookies', '$translate', f
     },100)
 
     $scope.save = function() {
-        // let obj = {assignment:{
-        //     assignee:$scope.status.cacheval,
-        //     assigneeindex:$scope.status.typeindex,
-        // }}
-        $scope.property.value = $scope.status.cacheval
+        let obj = {assignment:{
+            assignee:$scope.status.cacheval,
+            assigneeindex:$scope.status.typeindex,
+        }}
+        $scope.property.value = obj
         $scope.updatePropertyInModel($scope.property);
         $scope.close();
     };
