@@ -161,7 +161,7 @@ var KisBpmChoiceSetsPopupCtrl = [ '$scope', '$http','$cookies', '$translate', fu
     };
     $scope.fsets = {
         backNode:[""],    // 驳回
-        stopNode:0,     //终结
+        stopNode:[0],     //终结
         isDealer:0,    //是否时经销商
         isParallelNode:0,    //是否并行
         routeWay:"",    //流转方式
