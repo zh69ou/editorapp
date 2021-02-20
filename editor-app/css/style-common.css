@@ -167,17 +167,6 @@ label {
     border-radius: 0;
 }
 
-/** Buttons **/
-button.btn, a.btn {
-    font-size: 15px;
-}
-
-button.btn-subtle, a.btn-subtle {
-    background-color: #fafafb;
-    color: #1a1a1a;
-    font-size: 15px;
-}
-
 .btn-xs {
     padding: 1px 8px;
 }
