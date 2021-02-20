@@ -21,7 +21,7 @@
 					</div>
 					<div id="jstree"></div>
 					<div class="form-inline"  ng-if="status.typeindex==0">
-						<button type="button" class="btn" ng-class="{'btn-link': v != status.page,'btn-primary':v == status.page}" ng-repeat="(i,v) in status.listpage" ng-click="jumppage(v)">{{v}}</button>
+						<button type="button" class="btn btn-sm" ng-class="{'btn-link': v != status.page,'btn-primary':v == status.page}" ng-repeat="(i,v) in status.listpage" ng-click="jumppage(v)">{{v}}</button>
 					</div>
 				</div>
 				<div class="jsonbox" ng-if="status.showbox==1">
