@@ -106,8 +106,10 @@
 		                    <div class="selected-item-title">
 		                        <a ng-click="propertyWindowState.toggle()">
 		                            <i class="glyphicon" ng-class="{'glyphicon-chevron-right': propertyWindowState.collapsed, 'glyphicon-chevron-down': !propertyWindowState.collapsed}"></i>
-		                            <span ng-show="selectedItem.title != undefined && selectedItem.title != null && selectedItem.title.length > 0">{{selectedItem.title}}</span>
-		                            <span ng-show="!selectedItem || selectedItem.title == undefined || selectedItem.title == null || selectedItem.title.length == 0">{{modelData.name}}</span>
+		                            <!-- <span ng-show="selectedItem.title != undefined && selectedItem.title != null && selectedItem.title.length > 0">{{selectedItem.title}}</span> -->
+		                            <!-- <span ng-show="!selectedItem || selectedItem.title == undefined || selectedItem.title == null || selectedItem.title.length == 0">{{modelData.name}}</span> -->
+		                            <span ng-show="selectedItem.title!=modelData.name">节点配置</span>
+		                            <span ng-show="selectedItem.title==modelData.name">全局配置</span>
 		                        </a>
 		                    </div>
 		                </div>
